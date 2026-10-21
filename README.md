@@ -1,61 +1,43 @@
 # Little Talk Cafe — Smart QR Ordering & Cafe Management System
-## Premium Cinematic Promotional Animation Video (4K, 16:9, 80 Seconds)
+## Premium Cinematic Promotional Video (Universal Browser & MP4 Recording)
 
-A cinematic, interactive promotional video engine showcasing the complete customer and cafe staff journey for **Little Talk Cafe — Smart QR Ordering & Cafe Management System**.
-
----
-
-### 🎬 Video Specifications
-* **Duration:** 80 Seconds (Timings calibrated across 10 scenes)
-* **Aspect Ratio:** 16:9 Widescreen (Responsive 4K Canvas rendering)
-* **Visual Style:** Modern 3D animation mixed with realistic product UI animation, warm volumetric lighting, depth of field, and procedural particles (coffee cup steam, warm cafe bokeh, falling coffee beans).
-* **Color Palette:** Warm brown (`#2C1810`), roasted coffee (`#4A2E1B`), rich amber (`#D58D49`), foam cream (`#EAD8C0`), soft off-white (`#FAF6F0`), and emerald green (`#10B981`).
-* **Audio Landscape:**
-  - **Ambient Music:** Procedural warm Lo-Fi cafe jazz (Rhodes 7th/9th chords + upright bass line + vinyl room tone) synthesized via Web Audio API.
-  - **Dynamic SFX:** Espresso steam wand hiss, camera shutter, laser QR scan confirmation beep, UI clicks, Admin incoming order alert chime ("Ding-Dong!"), kitchen brass bell, and order ready fanfare.
-  - **Voiceover:** Professional English narration with friendly, confident tone (via Web Speech API with automatic natural voice selection) synchronized with real-time subtitle teleprompter.
-* **Export Features:**
-  - Built-in **60fps Video Recorder** (`Record Video` button) exporting high-bitrate WebM/MP4 video with audio directly to your downloads.
-  - **4K Snapshot Capture** (`4K Snapshot` button) for promotional posters and social media marketing.
+A cinematic promotional animation video engine showcasing the customer and cafe staff journey for **Little Talk Cafe — Smart QR Ordering & Cafe Management System**.
 
 ---
 
-### ⏱️ Scene Breakdown & Script Timetable
-
-| Scene | Timestamp | Title | Key Visuals & Interactions | Voiceover Narration |
-|:-----:|:---------:|:------|:---------------------------|:--------------------|
-| **1** | `00:00 - 00:07` | **Cafe Introduction** | Warm modern cafe interior, morning sunlight, espresso machine in background, floating brand emblem card. | *"Welcome to Little Talk Cafe. Where good coffee, great conversations, and easy ordering come together."* |
-| **2** | `00:07 - 00:14` | **Customer Arrives** | Subtle animated cafe floor plan HUD (green available / red busy tables). Customer selects Table 4; acrylic QR code stand highlighted. | *"Finding an open table is effortless with live table availability. Take a seat at your favorite spot."* |
-| **3** | `00:14 - 00:21` | **Scan QR Code** | Customer POV smartphone camera viewfinder focusing on Table 4 QR stand, laser scan sweep, seamless dissolve into mobile site. | *"Simply scan the table QR code with your smartphone camera. No app download needed."* |
-| **4** | `00:21 - 00:30` | **Browse Menu** | Mobile menu with category tabs (Coffee, Tea, Cold Drinks, Food, Desserts). Taps Coffee, reveals artisan Cappuccino, Latte, Espresso with photos and prices. | *"Explore our rich digital menu featuring freshly brewed specialty coffee, artisan sandwiches, and gourmet desserts."* |
-| **5** | `00:30 - 00:40` | **Customize Order** | Detailed product sheet: 2 cups, Medium size (+$0.50), Less Sugar (50%), "Extra hot" note. Dynamic price counter ($9.50) + cart drawer ($17.50 total). | *"Customize your drink your way. Select cup size, sweetness, and temperature with instant price updates."* |
-| **6** | `00:40 - 00:49` | **Google Checkout** | Order summary (Alex Morgan, Table 4, Cafe Service). Customer taps Submit Order -> 1-Tap Google Sign-In modal appears, authenticates seamlessly with cart preserved. | *"Fast, frictionless checkout with Google One-Tap. Your cart is always securely preserved."* |
-| **7** | `00:49 - 00:59` | **Admin Dashboard** | Camera pans to 27" desktop monitor. "Ding-Dong!" alert chime. New order #1042 popover with items and notes. Admin selects 10m prep time and confirms. | *"The order instantly arrives on the cafe admin dashboard with table number, customizations, and live prep timer."* |
-| **8** | `00:59 - 01:08` | **Kitchen Prep (KDS)** | Kitchen Display System Kanban (New → Preparing → Ready) with 10:00 countdown timer, intercut with barista pouring silky latte art. Order marked Ready with kitchen bell. | *"Baristas and chefs prepare your items in sync using the interactive Kitchen Display System."* |
-| **9** | `01:08 - 01:17` | **Live Order Tracking** | Customer phone order timeline (Placed → Confirmed → Preparing → Ready). "Your order is ready!" push alert; waiter delivers order to Table 4. | *"Follow your order status in real time. Pick it up fresh at the counter, or enjoy table service."* |
-| **10** | `01:17 - 01:20` | **Grand Brand Reveal** | Joyful friends enjoying coffee together, 3D floating coffee beans, warm golden ambient glow, logo crescendo with supporting text. | *"Little Talk Cafe. Good Coffee. Great Conversations. Easy Ordering. Elevate your cafe today."* |
+### ✨ Latest Enhancements & Updates
+* **Universal Browser Startup:** Starts smoothly on all modern browsers (Chrome, Edge, Safari, Firefox, iOS, Android) with user-gesture audio unlock overlay.
+* **Direct MP4 Download & Recording:** Records 60fps video with mixed synchronized audio and exports strictly with the **`.mp4`** file extension (`Little_Talk_Cafe_Promo.mp4`).
+* **Crackle-Free Crystal Clear Audio:** Completely removed static / white noise artifacts for a pure, warm, velvety Lo-Fi jazz soundtrack and clean sound effects.
+* **Streamlined Minimalist Interface:**
+  - Removed the bulky chapter pills row shown in the screenshot for an unobstructed cinematic view.
+  - Removed the snapshot button from the header.
+* **Zoom Out & Zoom In Controls:**
+  - Added dedicated **Zoom Out (−)**, **Zoom In (+)**, and **Reset Zoom (100%)** icons in the top navigation bar.
+  - Keyboard shortcuts: `-` / `_` to zoom out, `+` / `=` to zoom in, `0` to reset.
 
 ---
 
-### 🚀 Running the Promotional Video Engine
+### ⏱️ 10-Scene Storyboard & Timeline
 
-The application is completely self-contained with **zero external npm dependencies**.
+| Scene | Timestamp | Title | Key Visuals |
+|:-----:|:---------:|:------|:------------|
+| **1** | `00:00 - 00:07` | **Cafe Introduction** | Warm modern cafe interior, golden sunlight, espresso steam, brand reveal. |
+| **2** | `00:07 - 00:14` | **Customer Arrives** | Live table availability interface (green/red indicators) & Table 4 QR stand. |
+| **3** | `00:14 - 00:21` | **Scan QR Code** | POV smartphone scanning table QR stand with laser sweep -> instant mobile web app. |
+| **4** | `00:21 - 00:30` | **Browse Menu** | Categories (Coffee, Tea, Food, Desserts) & artisan product cards with prices. |
+| **5** | `00:30 - 00:40` | **Customize Order** | 2 cups, Medium size, Less sugar (50%), "Extra hot" note, dynamic price rollup ($9.50) + cart. |
+| **6** | `00:40 - 00:49` | **Google Checkout** | Table 4 checkout + 1-Tap Google Sign-in modal with cart preserved. |
+| **7** | `00:49 - 00:59` | **Admin Dashboard** | 27" Desktop Monitor, "Ding-Dong!" POS alert, incoming order #1042, 10m prep timer. |
+| **8** | `00:59 - 01:08` | **Kitchen Prep (KDS)** | Kitchen Display System progression (*New → Preparing → Ready*), barista latte art pour. |
+| **9** | `01:08 - 01:17` | **Live Order Tracking** | 4-step live order status (*Placed → Confirmed → Preparing → Ready!*) + waiter table delivery. |
+| **10** | `01:17 - 01:20` | **Grand Brand Reveal** | Friends enjoying coffee together, 3D floating coffee beans, warm logo crescendo. |
 
-1. **Start the local server (if not already running):**
-   ```bash
-   node server.js
-   ```
-2. **Open in your browser:**
-   ```text
-   http://localhost:3000/
-   ```
+---
 
-### 🎮 Keyboard Shortcuts & Director Controls
-* `Spacebar`: Play / Pause playback
-* `Left / Right Arrow`: Jump backward / forward 5 seconds
-* `F`: Toggle Fullscreen Cinema mode
-* `Chapter Pills (1-10)`: Instantly seek to any scene
-* `Speed Selector`: Adjust playback speed (0.75x, 1.0x, 1.25x, 1.5x)
-* `Audio Dials`: Individually adjust Voiceover narration, Lo-Fi Jazz music, and Sound FX volumes
-* `Record Video`: Exports a 60fps WebM/MP4 video file directly to disk
-* `4K Snapshot`: Captures a high-resolution PNG image of the current frame
+### 🚀 How to Run & Control
+1. **Open in browser:**
+   👉 **[http://localhost:3000](http://localhost:3000)** *(server is currently active)*
+2. **Click anywhere on the video** or press `Spacebar` to start playback with full audio.
+3. **Zoom Controls:** Click the **Zoom Out** magnifying icon in the header (or press `-`) to scale down the cinema screen to your preferred size.
+4. **Export MP4:** Click **Record MP4 Video** to record and download the `.mp4` file directly to your PC.

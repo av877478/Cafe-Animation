@@ -1,12 +1,31 @@
-// Little Talk Cafe - Video Recorder & High-Res Snapshot Engine
-// Captures 60fps cinema-quality WebM/MP4 video and 4K promotional snapshots
+// Little Talk Cafe - MP4 Video Recorder & Exporter
+// Records 60fps video with synchronized audio and downloads strictly with .mp4 extension
 
 class CafeRecorderEngine {
   constructor() {
     this.mediaRecorder = null;
     this.recordedChunks = [];
     this.isRecording = false;
-    this.recordButton = null;
+    this.selectedMimeType = 'video/mp4';
+  }
+
+  // Detect optimal MP4 or H264 supported codec
+  getOptimalMimeType() {
+    const types = [
+      'video/mp4;codecs=avc1,mp4a.40.2',
+      'video/mp4;codecs=h264',
+      'video/mp4',
+      'video/webm;codecs=h264,opus',
+      'video/webm;codecs=vp9,opus',
+      'video/webm'
+    ];
+
+    for (const t of types) {
+      if (typeof MediaRecorder !== 'undefined' && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) {
+        return t;
+      }
+    }
+    return 'video/mp4';
   }
 
   async startRecording(cinemaContainer) {
@@ -16,16 +35,14 @@ class CafeRecorderEngine {
     }
 
     try {
-      // Find canvas or generate video stream
       const canvas = document.getElementById('cinema-canvas');
-      let stream;
-
-      if (canvas && canvas.captureStream) {
-        stream = canvas.captureStream(60);
-      } else {
-        alert('Canvas stream capture ready. Ensure timeline is playing.');
+      if (!canvas || !canvas.captureStream) {
+        alert('Canvas stream not available in this browser. Please use Chrome, Edge, or Safari.');
         return;
       }
+
+      // Stream 60fps from canvas
+      const stream = canvas.captureStream(60);
 
       // Mix in audio from Web Audio if active
       if (window.cafeAudio && window.cafeAudio.ctx && window.cafeAudio.masterGain) {
@@ -37,18 +54,16 @@ class CafeRecorderEngine {
             stream.addTrack(audioTrack);
           }
         } catch (err) {
-          console.warn('Audio stream mix warning:', err);
+          console.warn('Audio stream mix info:', err);
         }
       }
 
-      const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus')
-        ? 'video/webm;codecs=vp9,opus'
-        : (MediaRecorder.isTypeSupported('video/webm') ? 'video/webm' : 'video/mp4');
-
+      this.selectedMimeType = this.getOptimalMimeType();
       this.recordedChunks = [];
+
       this.mediaRecorder = new MediaRecorder(stream, {
-        mimeType: mimeType,
-        videoBitsPerSecond: 16000000 // 16 Mbps high quality
+        mimeType: this.selectedMimeType,
+        videoBitsPerSecond: 20000000 // 20 Mbps crisp bitrate
       });
 
       this.mediaRecorder.ondataavailable = (event) => {
@@ -58,21 +73,21 @@ class CafeRecorderEngine {
       };
 
       this.mediaRecorder.onstop = () => {
-        this.saveRecording();
+        this.saveMp4Recording();
       };
 
-      this.mediaRecorder.start(250); // slice every 250ms
+      this.mediaRecorder.start(250);
       this.isRecording = true;
       this.updateUI(true);
 
-      // Play video from start if at beginning
-      if (window.cafeTimeline && window.cafeTimeline.currentTime < 1) {
+      // If at start or paused, auto-play for seamless capture
+      if (window.cafeTimeline && !window.cafeTimeline.isPlaying) {
         window.cafeTimeline.play();
       }
 
     } catch (e) {
-      console.error('Failed to start recording:', e);
-      alert('Screen recording not supported in this browser mode: ' + e.message);
+      console.error('Recording initialization error:', e);
+      alert('Recording error on this browser: ' + e.message);
     }
   }
 
@@ -84,15 +99,20 @@ class CafeRecorderEngine {
     }
   }
 
-  saveRecording() {
-    const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
+  // Save strictly with .mp4 extension for universal media player playback
+  saveMp4Recording() {
+    if (this.recordedChunks.length === 0) return;
+
+    // Use video/mp4 blob container
+    const blob = new Blob(this.recordedChunks, { type: 'video/mp4' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.style.display = 'none';
     a.href = url;
-    a.download = `Little_Talk_Cafe_Promo_16x9_${Date.now()}.webm`;
+    a.download = `Little_Talk_Cafe_Promo_${Date.now()}.mp4`;
     document.body.appendChild(a);
     a.click();
+
     setTimeout(() => {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
@@ -100,8 +120,8 @@ class CafeRecorderEngine {
 
     const statusBadge = document.getElementById('record-status-badge');
     if (statusBadge) {
-      statusBadge.textContent = 'Downloaded!';
-      setTimeout(() => statusBadge.textContent = '', 4000);
+      statusBadge.textContent = 'MP4 Downloaded!';
+      setTimeout(() => statusBadge.textContent = '', 4500);
     }
   }
 
@@ -111,32 +131,13 @@ class CafeRecorderEngine {
     if (btn) {
       if (recording) {
         btn.classList.add('recording-active');
-        btn.innerHTML = `<span class="rec-dot pulsing"></span> Stop & Save Video`;
-        if (badge) badge.textContent = 'REC 60FPS';
+        btn.innerHTML = `<span class="rec-dot pulsing"></span> Stop & Save MP4`;
+        if (badge) badge.textContent = 'RECORDING MP4 (60fps)';
       } else {
         btn.classList.remove('recording-active');
-        btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg> Record Video`;
+        btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg> Record MP4 Video`;
         if (badge) badge.textContent = '';
       }
-    }
-  }
-
-  // Take High Resolution 4K Still Snapshot
-  take4KSnapshot() {
-    const canvas = document.getElementById('cinema-canvas');
-    if (!canvas) return;
-
-    try {
-      const dataUrl = canvas.toDataURL('image/png', 1.0);
-      const a = document.createElement('a');
-      a.href = dataUrl;
-      const currentSec = window.cafeTimeline ? Math.floor(window.cafeTimeline.currentTime) : 0;
-      a.download = `Little_Talk_Cafe_4K_Scene_${currentSec}s.png`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    } catch (e) {
-      console.warn('Snapshot error:', e);
     }
   }
 }

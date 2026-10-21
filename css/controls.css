@@ -7,12 +7,12 @@
   border: 1px solid rgba(213, 141, 73, 0.3);
   backdrop-filter: blur(16px);
   border-radius: 16px;
-  padding: 14px 24px;
+  padding: 16px 24px;
   margin-bottom: 24px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 /* Timeline Track & Scrubber */
@@ -55,7 +55,7 @@
   border-radius: 50%;
   background: #FFF;
   border: 3px solid var(--coffee-amber);
-  box-shadow: 0 0 10px rgba(213, 141, 73, 0.8);
+  box-shadow: 0 0 12px rgba(213, 141, 73, 0.9);
   pointer-events: none;
   transition: left 0.05s linear;
 }
@@ -68,55 +68,6 @@
   height: 16px;
   background: rgba(255, 255, 255, 0.35);
   pointer-events: none;
-}
-
-/* Chapter Navigation Bar */
-.chapters-scroll-row {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding-bottom: 4px;
-}
-
-.chapter-pill {
-  padding: 6px 12px;
-  border-radius: 20px;
-  background: rgba(35, 22, 14, 0.7);
-  border: 1px solid rgba(213, 141, 73, 0.2);
-  color: #B8A89A;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-}
-
-.chapter-pill:hover {
-  background: rgba(213, 141, 73, 0.2);
-  color: #FFF;
-}
-
-.chapter-pill.active {
-  background: var(--coffee-amber);
-  border-color: var(--coffee-amber);
-  color: #120C07;
-  font-weight: 800;
-  box-shadow: 0 2px 10px rgba(213, 141, 73, 0.4);
-}
-
-.chapter-num {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
 }
 
 /* Controls Bottom Row */
@@ -154,13 +105,23 @@
   border-color: var(--coffee-amber);
 }
 
+.icon-only-btn {
+  padding: 8px 10px;
+  justify-content: center;
+}
+
 .control-btn.btn-play-primary {
   background: linear-gradient(135deg, #D58D49, #8C5329);
   border: none;
-  padding: 10px 20px;
+  padding: 10px 22px;
   font-size: 1rem;
   font-weight: 700;
   box-shadow: 0 4px 15px rgba(213, 141, 73, 0.4);
+}
+
+.control-btn.btn-play-primary:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(213, 141, 73, 0.6);
 }
 
 .time-readout {
@@ -193,6 +154,26 @@
   cursor: pointer;
 }
 
+/* Zoom Controls */
+.zoom-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(28, 18, 12, 0.85);
+  border: 1px solid rgba(213, 141, 73, 0.3);
+  border-radius: 12px;
+  padding: 3px 6px;
+}
+
+.zoom-level-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--coffee-amber);
+  min-width: 44px;
+  text-align: center;
+}
+
+/* Recording Action */
 .btn-record-action {
   background: #DC2626;
   border: none;
@@ -220,4 +201,89 @@
 
 .pulsing {
   animation: pulseDot 1s infinite alternate;
+}
+
+/* Hero Cinema Start Overlay (Ensures cross-browser autoplay) */
+.cinema-start-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 7, 4, 0.88);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  cursor: pointer;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.cinema-start-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.start-card-hero {
+  text-align: center;
+  background: rgba(24, 16, 11, 0.92);
+  border: 1px solid rgba(213, 141, 73, 0.5);
+  padding: 40px 50px;
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 50px rgba(213, 141, 73, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 520px;
+  width: 90%;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.start-card-hero:hover {
+  transform: scale(1.03);
+}
+
+.start-play-ring {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #D58D49, #8C5329);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 35px rgba(213, 141, 73, 0.7);
+  animation: ringPulse 2s infinite alternate;
+}
+
+@keyframes ringPulse {
+  0% { transform: scale(1); box-shadow: 0 0 25px rgba(213, 141, 73, 0.5); }
+  100% { transform: scale(1.08); box-shadow: 0 0 45px rgba(213, 141, 73, 0.9); }
+}
+
+.start-card-hero h2 {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #FFF;
+}
+
+.start-card-hero p {
+  font-size: 0.9rem;
+  color: var(--coffee-cream);
+}
+
+.start-hint-pill {
+  padding: 8px 20px;
+  border-radius: 30px;
+  background: rgba(213, 141, 73, 0.2);
+  border: 1px solid rgba(213, 141, 73, 0.4);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FFF;
+  margin-top: 6px;
 }

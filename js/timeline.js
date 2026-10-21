@@ -285,15 +285,6 @@ class CafeTimelineEngine {
     const progressPct = (this.currentTime / this.totalDuration) * 100;
     if (progressBar) progressBar.style.width = `${progressPct}%`;
     if (scrubberHandle) scrubberHandle.style.left = `${progressPct}%`;
-
-    // Highlight active chapter pill
-    document.querySelectorAll('.chapter-pill').forEach((pill, idx) => {
-      if (idx === this.currentSceneIndex) {
-        pill.classList.add('active');
-      } else {
-        pill.classList.remove('active');
-      }
-    });
   }
 
   drawFrame() {
