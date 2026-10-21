@@ -1,0 +1,223 @@
+/* Little Talk Cafe - Director Console & Player Controls */
+
+.player-controls-panel {
+  width: 95vw;
+  max-width: 1440px;
+  background: rgba(20, 13, 8, 0.94);
+  border: 1px solid rgba(213, 141, 73, 0.3);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  padding: 14px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Timeline Track & Scrubber */
+.timeline-track-container {
+  position: relative;
+  width: 100%;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.timeline-track-bg {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background: #2A1B12;
+  border-radius: 4px;
+  overflow: visible;
+}
+
+.timeline-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #8C5329, #D58D49, #F3C287);
+  border-radius: 4px;
+  transition: width 0.05s linear;
+}
+
+.scrubber-handle {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #FFF;
+  border: 3px solid var(--coffee-amber);
+  box-shadow: 0 0 10px rgba(213, 141, 73, 0.8);
+  pointer-events: none;
+  transition: left 0.05s linear;
+}
+
+/* Scene Markers on Track */
+.timeline-marker {
+  position: absolute;
+  top: -4px;
+  width: 2px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+
+/* Chapter Navigation Bar */
+.chapters-scroll-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.chapter-pill {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(35, 22, 14, 0.7);
+  border: 1px solid rgba(213, 141, 73, 0.2);
+  color: #B8A89A;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.chapter-pill:hover {
+  background: rgba(213, 141, 73, 0.2);
+  color: #FFF;
+}
+
+.chapter-pill.active {
+  background: var(--coffee-amber);
+  border-color: var(--coffee-amber);
+  color: #120C07;
+  font-weight: 800;
+  box-shadow: 0 2px 10px rgba(213, 141, 73, 0.4);
+}
+
+.chapter-num {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+}
+
+/* Controls Bottom Row */
+.controls-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.playback-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.control-btn {
+  background: rgba(45, 30, 20, 0.8);
+  border: 1px solid rgba(213, 141, 73, 0.3);
+  color: #FFF;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background: rgba(213, 141, 73, 0.25);
+  border-color: var(--coffee-amber);
+}
+
+.control-btn.btn-play-primary {
+  background: linear-gradient(135deg, #D58D49, #8C5329);
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(213, 141, 73, 0.4);
+}
+
+.time-readout {
+  font-family: monospace;
+  font-size: 0.95rem;
+  color: var(--coffee-cream);
+  font-weight: 700;
+  min-width: 110px;
+}
+
+/* Audio & Settings Dials */
+.audio-settings-group {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.setting-slider-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: #B8A89A;
+  font-weight: 600;
+}
+
+.setting-slider-item input[type="range"] {
+  width: 75px;
+  accent-color: var(--coffee-amber);
+  cursor: pointer;
+}
+
+.btn-record-action {
+  background: #DC2626;
+  border: none;
+  color: #FFF;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
+}
+
+.btn-record-action:hover {
+  background: #B91C1C;
+}
+
+.btn-record-action.recording-active {
+  background: #10B981;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+}
+
+.rec-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #FFF;
+  display: inline-block;
+}
+
+.pulsing {
+  animation: pulseDot 1s infinite alternate;
+}

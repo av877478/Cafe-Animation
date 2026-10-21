@@ -1,0 +1,263 @@
+/* Little Talk Cafe - Main Cinematic Styling */
+:root {
+  --coffee-darkest: #120C07;
+  --coffee-dark: #1E140C;
+  --coffee-espresso: #2C1810;
+  --coffee-roasted: #4A2E1B;
+  --coffee-caramel: #8C5329;
+  --coffee-amber: #D58D49;
+  --coffee-cream: #EAD8C0;
+  --coffee-foam: #FAF6F0;
+  --accent-green: #10B981;
+  --accent-green-dark: #059669;
+  --accent-red: #EF4444;
+  --accent-amber: #F59E0B;
+  --accent-blue: #3B82F6;
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0A0705;
+  color: #F5EFEB;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* App Header & Top Bar */
+.app-header {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: rgba(22, 15, 10, 0.7);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(213, 141, 73, 0.2);
+  z-index: 100;
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #D58D49, #8C5329);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(213, 141, 73, 0.4);
+}
+
+.brand-name-group h1 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FFF;
+  letter-spacing: 0.5px;
+}
+
+.brand-name-group p {
+  font-size: 0.75rem;
+  color: var(--coffee-amber);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Cinema Wrapper - Fixed 16:9 Aspect Ratio */
+.cinema-wrapper {
+  position: relative;
+  width: 95vw;
+  max-width: 1440px;
+  aspect-ratio: 16 / 9;
+  margin: 16px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(213, 141, 73, 0.15);
+  background: #000;
+  border: 1px solid rgba(213, 141, 73, 0.25);
+}
+
+/* 4K Canvas Renderer Layer */
+#cinema-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+/* DOM Scene Overlays Container */
+.scene-overlays-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.scene-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+  pointer-events: auto;
+}
+
+.scene-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Text Overlays - Premium Typography */
+.cinematic-banner {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(18, 12, 7, 0.88);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(213, 141, 73, 0.4);
+  padding: 10px 28px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  z-index: 20;
+}
+
+.cinematic-banner.top-banner {
+  top: 32px;
+}
+
+.cinematic-banner.bottom-banner {
+  bottom: 85px;
+}
+
+.banner-text {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #FFFFFF, #EAD8C0, #D58D49);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Teleprompter / Synced Subtitle Ribbon */
+.teleprompter-ribbon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px 30px;
+  background: linear-gradient(to top, rgba(10, 7, 4, 0.96) 0%, rgba(10, 7, 4, 0.75) 60%, rgba(10, 7, 4, 0) 100%);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.teleprompter-scene-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--coffee-amber);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.teleprompter-caption {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #FFF;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  max-width: 900px;
+  transition: all 0.25s ease;
+}
+
+.caption-highlight {
+  color: #F8E7D2;
+}
+
+.pulse-glow {
+  transform: scale(1.02);
+  text-shadow: 0 0 16px rgba(213, 141, 73, 0.9);
+}
+
+/* Badges & Chips */
+.tag-chip {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tag-available {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.tag-occupied {
+  background: rgba(239, 68, 68, 0.2);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.tag-amber {
+  background: rgba(213, 141, 73, 0.2);
+  color: #D58D49;
+  border: 1px solid rgba(213, 141, 73, 0.4);
+}
+
+/* Glassmorphism Cards */
+.glass-panel {
+  background: rgba(28, 18, 12, 0.78);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(213, 141, 73, 0.3);
+  border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
