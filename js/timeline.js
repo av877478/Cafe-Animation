@@ -62,12 +62,12 @@ class CafeTimelineEngine {
 
   preloadAssets() {
     const assetList = [
-      { key: 'scene1_intro', src: '/assets/scene1_cafe_intro.jpg' },
-      { key: 'scene2_table', src: '/assets/scene2_qr_table.jpg' },
-      { key: 'scene3_qr_scan', src: '/assets/scene3_qr_scan.jpg' },
-      { key: 'scene4_food', src: '/assets/scene4_cappuccino_sandwich.jpg' },
-      { key: 'scene8_barista', src: '/assets/scene8_barista_pour.jpg' },
-      { key: 'scene10_friends', src: '/assets/scene10_happy_friends.jpg' }
+      { key: 'scene1_intro', src: 'assets/scene1_cafe_intro.jpg', fallback: 'public/assets/scene1_cafe_intro.jpg' },
+      { key: 'scene2_table', src: 'assets/scene2_qr_table.jpg', fallback: 'public/assets/scene2_qr_table.jpg' },
+      { key: 'scene3_qr_scan', src: 'assets/scene3_qr_scan.jpg', fallback: 'public/assets/scene3_qr_scan.jpg' },
+      { key: 'scene4_food', src: 'assets/scene4_cappuccino_sandwich.jpg', fallback: 'public/assets/scene4_cappuccino_sandwich.jpg' },
+      { key: 'scene8_barista', src: 'assets/scene8_barista_pour.jpg', fallback: 'public/assets/scene8_barista_pour.jpg' },
+      { key: 'scene10_friends', src: 'assets/scene10_happy_friends.jpg', fallback: 'public/assets/scene10_happy_friends.jpg' }
     ];
 
     let loadedCount = 0;
@@ -78,6 +78,13 @@ class CafeTimelineEngine {
         loadedCount++;
         if (loadedCount === assetList.length) {
           this.imagesLoaded = true;
+        }
+      };
+      img.onerror = () => {
+        // Fallback to public/assets/ if root /assets/ is not routed
+        if (!img.dataset.triedFallback) {
+          img.dataset.triedFallback = "true";
+          img.src = item.fallback;
         }
       };
       img.src = item.src;
