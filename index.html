@@ -79,8 +79,9 @@
 
   <!-- 16:9 Widescreen Cinema Container -->
   <div class="cinema-wrapper" id="cinema-container">
-    <!-- Universal Cross-Browser Hero Start Screen -->
-    <div class="cinema-start-overlay" id="cinema-start-overlay">
+    <div class="cinema-viewport-scaler" id="cinema-scaler">
+      <!-- Universal Cross-Browser Hero Start Screen -->
+      <div class="cinema-start-overlay" id="cinema-start-overlay">
       <div class="start-card-hero">
         <div class="start-play-ring">
           <svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
@@ -696,14 +697,15 @@
 
     </div>
 
-    <!-- Synced Teleprompter / Subtitles Ribbon -->
-    <div class="teleprompter-ribbon">
-      <div class="teleprompter-scene-title" id="teleprompter-title">SCENE 1: CAFE INTRODUCTION</div>
-      <div class="teleprompter-caption" id="teleprompter-caption">
-        Welcome to Little Talk Cafe — Good Coffee. Great Conversations. Easy Ordering.
+      <!-- Synced Teleprompter / Subtitles Ribbon -->
+      <div class="teleprompter-ribbon">
+        <div class="teleprompter-scene-title" id="teleprompter-title">SCENE 1: CAFE INTRODUCTION</div>
+        <div class="teleprompter-caption" id="teleprompter-caption">
+          Welcome to Little Talk Cafe — Good Coffee. Great Conversations. Easy Ordering.
+        </div>
       </div>
-    </div>
-  </div>
+    </div> <!-- /#cinema-scaler -->
+  </div> <!-- /#cinema-container -->
 
   <!-- Director's Studio Controls Bar -->
   <footer class="player-controls-panel">

@@ -287,3 +287,93 @@
   color: #FFF;
   margin-top: 6px;
 }
+
+/* ========================================================
+   RESPONSIVE CONTROLS (TABLET & MOBILE)
+   ======================================================== */
+
+@media (max-width: 1024px) {
+  .player-controls-panel {
+    width: 96vw;
+    padding: 12px 18px;
+    gap: 12px;
+  }
+  .controls-bottom-row {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .player-controls-panel {
+    width: 100vw;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding: 10px 14px;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .controls-bottom-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .playback-buttons-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .audio-settings-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 8px;
+    border-top: 1px solid rgba(213, 141, 73, 0.2);
+    gap: 8px;
+  }
+  .setting-slider-item input[type="range"] {
+    width: 55px;
+  }
+  .start-card-hero {
+    padding: 24px 20px;
+  }
+  .start-card-hero h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .playback-buttons-group {
+    gap: 6px;
+  }
+  .control-btn {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+  .control-btn.btn-play-primary {
+    padding: 8px 16px;
+  }
+  .time-readout {
+    font-size: 0.8rem;
+    min-width: 80px;
+  }
+  .setting-slider-item {
+    font-size: 0.72rem;
+  }
+  .setting-slider-item input[type="range"] {
+    width: 45px;
+  }
+  .start-play-ring {
+    width: 60px;
+    height: 60px;
+  }
+  .start-play-ring svg {
+    width: 28px;
+    height: 28px;
+  }
+  .start-hint-pill {
+    font-size: 0.72rem;
+    padding: 6px 14px;
+  }
+}
+

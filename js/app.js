@@ -6,9 +6,30 @@ document.addEventListener('DOMContentLoaded', () => {
     window.cafeTimeline.init();
   }
 
+  // --- Universal 16:9 Viewport Scaler (Mobile, Tablet, Desktop) ---
+  const cinemaContainer = document.getElementById('cinema-container');
+  const scaler = document.getElementById('cinema-scaler');
+
+  const updateStageScale = () => {
+    if (!cinemaContainer || !scaler) return;
+    const containerWidth = cinemaContainer.clientWidth;
+    const scale = containerWidth / 1280;
+    scaler.style.transform = `scale(${scale})`;
+  };
+
+  updateStageScale();
+  window.addEventListener('resize', updateStageScale);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(updateStageScale, 150);
+  });
+
+  if (window.ResizeObserver && cinemaContainer) {
+    const ro = new ResizeObserver(() => updateStageScale());
+    ro.observe(cinemaContainer);
+  }
+
   // --- Universal Cross-Browser Start Overlay ---
   const startOverlay = document.getElementById('cinema-start-overlay');
-  const cinemaContainer = document.getElementById('cinema-container');
 
   const startExperience = () => {
     if (startOverlay) {

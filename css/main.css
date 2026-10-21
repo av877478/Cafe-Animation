@@ -106,13 +106,24 @@ body {
   transform-origin: center top;
 }
 
+/* Fixed Coordinate Cinema Stage (1280x720 16:9 Scaler) */
+.cinema-viewport-scaler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 720px;
+  transform-origin: top left;
+  pointer-events: auto;
+}
+
 /* 4K Canvas Renderer Layer */
 #cinema-canvas {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 1280px;
+  height: 720px;
   display: block;
   z-index: 1;
 }
@@ -263,3 +274,80 @@ body {
   border-radius: 14px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
+
+/* ========================================================
+   RESPONSIVE DESIGN (MOBILE, TABLET, DESKTOP)
+   ======================================================== */
+
+@media (max-width: 1024px) {
+  /* Tablet Styles */
+  .app-header {
+    padding: 10px 18px;
+  }
+  .brand-name-group h1 {
+    font-size: 1.15rem;
+  }
+  .cinema-wrapper {
+    width: 96vw;
+    margin: 12px auto;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile Landscape & Phablets */
+  body {
+    padding: 0 4px;
+  }
+  .app-header {
+    padding: 8px 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .brand-name-group p {
+    display: none; /* Hide subtitle to preserve header space */
+  }
+  .brand-logo-mark {
+    width: 30px;
+    height: 30px;
+  }
+  .header-actions {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .cinema-wrapper {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 6px auto;
+    border-radius: 10px;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile Phones Portrait */
+  .app-header {
+    padding: 6px 10px;
+  }
+  .brand-name-group h1 {
+    font-size: 1rem;
+  }
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+  .zoom-controls-group {
+    padding: 2px 4px;
+  }
+  .zoom-level-badge {
+    min-width: 36px;
+    font-size: 0.7rem;
+  }
+  .cinema-wrapper {
+    width: 100%;
+    margin: 4px 0;
+    border-radius: 6px;
+  }
+}
+
