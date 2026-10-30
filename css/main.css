@@ -1,4 +1,4 @@
-/* Little Talk Cafe - Main Cinematic Styling */
+/* Little Talk Cafe - Pure Cinema Styling (Zero Frame, Full-Bleed Video & Sound) */
 :root {
   --coffee-darkest: #120C07;
   --coffee-dark: #1E140C;
@@ -9,10 +9,7 @@
   --coffee-cream: #EAD8C0;
   --coffee-foam: #FAF6F0;
   --accent-green: #10B981;
-  --accent-green-dark: #059669;
-  --accent-red: #EF4444;
   --accent-amber: #F59E0B;
-  --accent-blue: #3B82F6;
 
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -24,89 +21,41 @@
   padding: 0;
 }
 
-body {
-  background: #0A0705;
-  color: #F5EFEB;
+body.pure-cinema-body {
+  background: #000;
+  color: #FFF;
   font-family: var(--font-sans);
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow-x: hidden;
   user-select: none;
 }
 
-/* App Header & Top Bar */
-.app-header {
-  width: 100%;
-  max-width: 1400px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 24px;
-  background: rgba(22, 15, 10, 0.7);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(213, 141, 73, 0.2);
-  z-index: 100;
-}
-
-.brand-badge {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.brand-logo-mark {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #D58D49, #8C5329);
+/* Pure Cinema Container - 100% Zero-Frame Fullscreen */
+.cinema-wrapper.pure-cinema {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: #000;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(213, 141, 73, 0.4);
 }
 
-.brand-name-group h1 {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #FFF;
-  letter-spacing: 0.5px;
-}
-
-.brand-name-group p {
-  font-size: 0.75rem;
-  color: var(--coffee-amber);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-weight: 600;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* Cinema Wrapper - Fixed 16:9 Aspect Ratio */
-.cinema-wrapper {
-  position: relative;
-  width: 95vw;
-  max-width: 1440px;
-  aspect-ratio: 16 / 9;
-  margin: 16px auto;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(213, 141, 73, 0.15);
-  background: #000;
-  border: 1px solid rgba(213, 141, 73, 0.25);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s ease;
-  transform-origin: center top;
-}
-
-/* Fixed Coordinate Cinema Stage (1280x720 16:9 Scaler) */
+/* 16:9 Viewport Scaler Stage (1280x720 centered) */
 .cinema-viewport-scaler {
   position: absolute;
   top: 0;
@@ -114,10 +63,10 @@ body {
   width: 1280px;
   height: 720px;
   transform-origin: top left;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
-/* 4K Canvas Renderer Layer */
+/* 4K Canvas Renderer */
 #cinema-canvas {
   position: absolute;
   top: 0;
@@ -128,226 +77,10 @@ body {
   z-index: 1;
 }
 
-/* DOM Scene Overlays Container */
-.scene-overlays-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
+/* When controls are hidden during playback, hide cursor */
+body.pure-cinema-playing {
+  cursor: none;
 }
-
-.scene-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
-  pointer-events: auto;
+body.pure-cinema-playing .pure-floating-controls {
+  cursor: default;
 }
-
-.scene-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Text Overlays - Premium Typography */
-.cinematic-banner {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(18, 12, 7, 0.88);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(213, 141, 73, 0.4);
-  padding: 10px 28px;
-  border-radius: 40px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  z-index: 20;
-}
-
-.cinematic-banner.top-banner {
-  top: 32px;
-}
-
-.cinematic-banner.bottom-banner {
-  bottom: 85px;
-}
-
-.banner-text {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  background: linear-gradient(90deg, #FFFFFF, #EAD8C0, #D58D49);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Teleprompter / Synced Subtitle Ribbon */
-.teleprompter-ribbon {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 12px 30px;
-  background: linear-gradient(to top, rgba(10, 7, 4, 0.96) 0%, rgba(10, 7, 4, 0.75) 60%, rgba(10, 7, 4, 0) 100%);
-  z-index: 15;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  pointer-events: none;
-}
-
-.teleprompter-scene-title {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  color: var(--coffee-amber);
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.teleprompter-caption {
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #FFF;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-  max-width: 900px;
-  transition: all 0.25s ease;
-}
-
-.caption-highlight {
-  color: #F8E7D2;
-}
-
-.pulse-glow {
-  transform: scale(1.02);
-  text-shadow: 0 0 16px rgba(213, 141, 73, 0.9);
-}
-
-/* Badges & Chips */
-.tag-chip {
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.tag-available {
-  background: rgba(16, 185, 129, 0.2);
-  color: #34D399;
-  border: 1px solid rgba(16, 185, 129, 0.4);
-}
-
-.tag-occupied {
-  background: rgba(239, 68, 68, 0.2);
-  color: #F87171;
-  border: 1px solid rgba(239, 68, 68, 0.4);
-}
-
-.tag-amber {
-  background: rgba(213, 141, 73, 0.2);
-  color: #D58D49;
-  border: 1px solid rgba(213, 141, 73, 0.4);
-}
-
-/* Glassmorphism Cards */
-.glass-panel {
-  background: rgba(28, 18, 12, 0.78);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(213, 141, 73, 0.3);
-  border-radius: 14px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-}
-
-/* ========================================================
-   RESPONSIVE DESIGN (MOBILE, TABLET, DESKTOP)
-   ======================================================== */
-
-@media (max-width: 1024px) {
-  /* Tablet Styles */
-  .app-header {
-    padding: 10px 18px;
-  }
-  .brand-name-group h1 {
-    font-size: 1.15rem;
-  }
-  .cinema-wrapper {
-    width: 96vw;
-    margin: 12px auto;
-  }
-}
-
-@media (max-width: 768px) {
-  /* Mobile Landscape & Phablets */
-  body {
-    padding: 0 4px;
-  }
-  .app-header {
-    padding: 8px 12px;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .brand-name-group p {
-    display: none; /* Hide subtitle to preserve header space */
-  }
-  .brand-logo-mark {
-    width: 30px;
-    height: 30px;
-  }
-  .header-actions {
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .cinema-wrapper {
-    width: 100vw;
-    max-width: 100vw;
-    margin: 6px auto;
-    border-radius: 10px;
-    border-left: none;
-    border-right: none;
-  }
-}
-
-@media (max-width: 480px) {
-  /* Mobile Phones Portrait */
-  .app-header {
-    padding: 6px 10px;
-  }
-  .brand-name-group h1 {
-    font-size: 1rem;
-  }
-  .header-actions {
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 4px;
-  }
-  .zoom-controls-group {
-    padding: 2px 4px;
-  }
-  .zoom-level-badge {
-    min-width: 36px;
-    font-size: 0.7rem;
-  }
-  .cinema-wrapper {
-    width: 100%;
-    margin: 4px 0;
-    border-radius: 6px;
-  }
-}
-

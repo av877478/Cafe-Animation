@@ -1,96 +1,128 @@
-// Little Talk Cafe - Application Controller & Universal Cross-Browser Engine
+// Little Talk Cafe - Pure Cinema Controller (Zero Frame, Full-Bleed Video & Sound)
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Master Timeline
   if (window.cafeTimeline) {
     window.cafeTimeline.init();
   }
 
-  // --- Universal 16:9 Viewport Scaler (Mobile, Tablet, Desktop) ---
   const cinemaContainer = document.getElementById('cinema-container');
   const scaler = document.getElementById('cinema-scaler');
+  const startOverlay = document.getElementById('cinema-start-overlay');
+  const controls = document.getElementById('pure-controls');
+  const playBtn = document.getElementById('btn-play');
+  const recordBtn = document.getElementById('btn-record');
+  const fsBtn = document.getElementById('btn-fullscreen');
+  const scrubber = document.getElementById('timeline-scrubber');
+  const volMaster = document.getElementById('vol-master');
+  const btnMute = document.getElementById('btn-mute');
 
+  // --- 1. Responsive 16:9 Viewport Scaler (Centered, Full-Bleed, Zero Frame) ---
   const updateStageScale = () => {
     if (!cinemaContainer || !scaler) return;
-    const containerWidth = cinemaContainer.clientWidth;
-    const scale = containerWidth / 1280;
+    const cw = window.innerWidth;
+    const ch = window.innerHeight;
+    const scale = Math.min(cw / 1280, ch / 720);
     scaler.style.transform = `scale(${scale})`;
+    scaler.style.left = `${(cw - 1280 * scale) / 2}px`;
+    scaler.style.top = `${(ch - 720 * scale) / 2}px`;
   };
 
   updateStageScale();
   window.addEventListener('resize', updateStageScale);
-  window.addEventListener('orientationchange', () => {
-    setTimeout(updateStageScale, 150);
+  window.addEventListener('orientationchange', () => setTimeout(updateStageScale, 150));
+
+  // --- 2. Auto-Hiding Controls Engine (Disappears completely during playback) ---
+  let hideControlsTimer = null;
+
+  const showControls = () => {
+    if (controls) controls.classList.add('active');
+    document.body.classList.remove('pure-cinema-playing');
+  };
+
+  const scheduleHideControls = () => {
+    if (hideControlsTimer) clearTimeout(hideControlsTimer);
+    if (window.cafeTimeline && window.cafeTimeline.isPlaying) {
+      hideControlsTimer = setTimeout(() => {
+        if (controls) controls.classList.remove('active');
+        document.body.classList.add('pure-cinema-playing');
+      }, 1800);
+    }
+  };
+
+  window.addEventListener('mousemove', () => {
+    showControls();
+    scheduleHideControls();
   });
 
-  if (window.ResizeObserver && cinemaContainer) {
-    const ro = new ResizeObserver(() => updateStageScale());
-    ro.observe(cinemaContainer);
-  }
+  window.addEventListener('touchstart', () => {
+    showControls();
+    scheduleHideControls();
+  }, { passive: true });
 
-  // --- Universal Cross-Browser Start Overlay ---
-  const startOverlay = document.getElementById('cinema-start-overlay');
-
-  const startExperience = () => {
+  // --- 3. Seamless Start / Playback Trigger ---
+  const startAndPlay = () => {
     if (startOverlay) {
       startOverlay.classList.add('hidden');
     }
-    // Resume / initialize Web Audio context on user gesture
     if (window.cafeAudio) {
       window.cafeAudio.init();
     }
-    // Start timeline playback
-    if (window.cafeTimeline && !window.cafeTimeline.isPlaying) {
-      window.cafeTimeline.play();
+    if (window.cafeTimeline) {
+      if (!window.cafeTimeline.isPlaying) {
+        window.cafeTimeline.play();
+      }
     }
+    scheduleHideControls();
   };
 
   if (startOverlay) {
-    startOverlay.addEventListener('click', startExperience);
-    startOverlay.addEventListener('touchend', startExperience);
+    startOverlay.addEventListener('click', startAndPlay);
+    startOverlay.addEventListener('touchend', startAndPlay);
   }
 
-  // --- Zoom In & Zoom Out Viewport Scaling ---
-  let zoomLevel = 1.0;
-  const zoomText = document.getElementById('zoom-level-text');
-  const btnZoomOut = document.getElementById('btn-zoom-out');
-  const btnZoomIn = document.getElementById('btn-zoom-in');
-  const btnZoomReset = document.getElementById('btn-zoom-reset');
-
-  const applyZoom = (newZoom) => {
-    zoomLevel = Math.max(0.5, Math.min(1.5, Math.round(newZoom * 10) / 10));
-    if (cinemaContainer) {
-      cinemaContainer.style.transform = `scale(${zoomLevel})`;
-    }
-    if (zoomText) {
-      zoomText.textContent = `${Math.round(zoomLevel * 100)}%`;
-    }
-  };
-
-  if (btnZoomOut) {
-    btnZoomOut.addEventListener('click', () => {
-      applyZoom(zoomLevel - 0.1);
+  // Clicking on the video canvas toggles play / pause
+  if (cinemaContainer) {
+    cinemaContainer.addEventListener('click', (e) => {
+      // Ignore if clicking on overlay or controls
+      if (e.target.closest('#pure-controls')) return;
+      if (startOverlay && !startOverlay.classList.contains('hidden')) {
+        startAndPlay();
+        return;
+      }
+      if (window.cafeTimeline) {
+        window.cafeTimeline.togglePlay();
+        if (window.cafeTimeline.isPlaying) {
+          scheduleHideControls();
+        } else {
+          showControls();
+        }
+      }
     });
   }
 
-  if (btnZoomIn) {
-    btnZoomIn.addEventListener('click', () => {
-      applyZoom(zoomLevel + 0.1);
+  // --- 4. Controls Buttons (Play, Pause, Scrubber) ---
+  if (playBtn) {
+    playBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (startOverlay && !startOverlay.classList.contains('hidden')) {
+        startAndPlay();
+        return;
+      }
+      if (window.cafeTimeline) {
+        window.cafeTimeline.togglePlay();
+        if (window.cafeTimeline.isPlaying) {
+          scheduleHideControls();
+        } else {
+          showControls();
+        }
+      }
     });
   }
 
-  if (btnZoomReset) {
-    btnZoomReset.addEventListener('click', () => {
-      applyZoom(1.0);
-    });
-  }
-
-  // --- Scrubber & Timeline Interaction ---
-  const scrubber = document.getElementById('timeline-scrubber');
+  // Timeline scrubber drag & seek
   let isDraggingScrubber = false;
-
   const seekFromEvent = (e) => {
-    if (!window.cafeTimeline) return;
+    if (!window.cafeTimeline || !scrubber) return;
     const rect = scrubber.getBoundingClientRect();
     const clickX = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
     const targetTime = (clickX / rect.width) * window.cafeTimeline.totalDuration;
@@ -99,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (scrubber) {
     scrubber.addEventListener('mousedown', (e) => {
+      e.stopPropagation();
       isDraggingScrubber = true;
       seekFromEvent(e);
     });
@@ -111,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
       isDraggingScrubber = false;
     });
 
-    // Touch support for mobile / touch screens
     scrubber.addEventListener('touchstart', (e) => {
       isDraggingScrubber = true;
       if (e.touches && e.touches[0]) seekFromEvent(e.touches[0]);
@@ -126,188 +158,109 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Play / Pause Controls ---
-  const playBtn = document.getElementById('btn-play');
-  if (playBtn) {
-    playBtn.addEventListener('click', () => {
-      if (startOverlay && !startOverlay.classList.contains('hidden')) {
-        startExperience();
-        return;
-      }
-      if (window.cafeTimeline) {
-        window.cafeTimeline.togglePlay();
-      }
-    });
-  }
+  // --- 5. Audio / Volume Controls ---
+  let isMuted = false;
+  let previousVolume = 0.9;
 
-  const prevBtn = document.getElementById('btn-prev-scene');
-  if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      if (!window.cafeTimeline) return;
-      const curIdx = window.cafeTimeline.currentSceneIndex;
-      window.cafeTimeline.jumpToScene(Math.max(0, curIdx - 1));
-    });
-  }
-
-  const nextBtn = document.getElementById('btn-next-scene');
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      if (!window.cafeTimeline) return;
-      const curIdx = window.cafeTimeline.currentSceneIndex;
-      window.cafeTimeline.jumpToScene(Math.min(window.cafeTimeline.scenes.length - 1, curIdx + 1));
-    });
-  }
-
-  // --- Keyboard Shortcuts ---
-  window.addEventListener('keydown', (e) => {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-
-    if (e.code === 'Space') {
-      e.preventDefault();
-      if (startOverlay && !startOverlay.classList.contains('hidden')) {
-        startExperience();
-      } else if (window.cafeTimeline) {
-        window.cafeTimeline.togglePlay();
-      }
-    } else if (e.code === 'ArrowLeft') {
-      e.preventDefault();
-      if (window.cafeTimeline) window.cafeTimeline.seek(window.cafeTimeline.currentTime - 5);
-    } else if (e.code === 'ArrowRight') {
-      e.preventDefault();
-      if (window.cafeTimeline) window.cafeTimeline.seek(window.cafeTimeline.currentTime + 5);
-    } else if (e.code === 'KeyF') {
-      e.preventDefault();
-      toggleFullscreen();
-    } else if (e.key === '-' || e.key === '_') {
-      e.preventDefault();
-      applyZoom(zoomLevel - 0.1);
-    } else if (e.key === '+' || e.key === '=') {
-      e.preventDefault();
-      applyZoom(zoomLevel + 0.1);
-    } else if (e.key === '0') {
-      e.preventDefault();
-      applyZoom(1.0);
-    }
-  });
-
-  // --- Playback Speed Switcher ---
-  const speedSelect = document.getElementById('speed-select');
-  if (speedSelect) {
-    speedSelect.addEventListener('change', (e) => {
-      const speed = parseFloat(e.target.value) || 1.0;
-      if (window.cafeTimeline) window.cafeTimeline.playbackRate = speed;
-      if (window.cafeVoiceover) window.cafeVoiceover.rate = speed;
-    });
-  }
-
-  // --- Volume Sliders ---
-  const volVoiceover = document.getElementById('vol-voiceover');
-  if (volVoiceover) {
-    volVoiceover.addEventListener('input', (e) => {
-      if (window.cafeVoiceover) {
-        window.cafeVoiceover.setVolume(parseFloat(e.target.value));
-      }
-    });
-  }
-
-  const volMusic = document.getElementById('vol-music');
-  if (volMusic) {
-    volMusic.addEventListener('input', (e) => {
+  if (volMaster) {
+    volMaster.addEventListener('input', (e) => {
+      e.stopPropagation();
+      const val = parseFloat(e.target.value);
       if (window.cafeAudio) {
-        window.cafeAudio.setMusicVolume(parseFloat(e.target.value));
+        window.cafeAudio.setMasterVolume(val);
+      }
+      if (val === 0) {
+        isMuted = true;
+        if (btnMute) btnMute.style.opacity = '0.4';
+      } else {
+        isMuted = false;
+        previousVolume = val;
+        if (btnMute) btnMute.style.opacity = '1';
       }
     });
   }
 
-  const volSfx = document.getElementById('vol-sfx');
-  if (volSfx) {
-    volSfx.addEventListener('input', (e) => {
-      if (window.cafeAudio) {
-        window.cafeAudio.setSfxVolume(parseFloat(e.target.value));
+  if (btnMute) {
+    btnMute.addEventListener('click', (e) => {
+      e.stopPropagation();
+      isMuted = !isMuted;
+      if (isMuted) {
+        if (window.cafeAudio) window.cafeAudio.setMasterVolume(0);
+        if (volMaster) volMaster.value = 0;
+        btnMute.style.opacity = '0.4';
+      } else {
+        if (window.cafeAudio) window.cafeAudio.setMasterVolume(previousVolume || 0.9);
+        if (volMaster) volMaster.value = previousVolume || 0.9;
+        btnMute.style.opacity = '1';
       }
     });
   }
 
-  // Voiceover Toggle Button
-  const voiceToggle = document.getElementById('voiceover-toggle-btn');
-  if (voiceToggle) {
-    voiceToggle.addEventListener('click', () => {
-      if (window.cafeVoiceover) {
-        const nextState = !window.cafeVoiceover.isEnabled;
-        window.cafeVoiceover.setEnabled(nextState);
-        voiceToggle.style.opacity = nextState ? '1' : '0.4';
-      }
-    });
-  }
-
-  // --- MP4 Video Recording ---
-  const recordBtn = document.getElementById('btn-record');
+  // --- 6. MP4 Video Recorder ---
   if (recordBtn) {
-    recordBtn.addEventListener('click', () => {
+    recordBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (window.cafeRecorder) {
         window.cafeRecorder.startRecording(cinemaContainer);
       }
     });
   }
 
-  // --- Cross-Browser Fullscreen Toggle (Supports all vendor prefixes) ---
-  const fsBtn = document.getElementById('btn-fullscreen');
+  // --- 7. Fullscreen Toggle ---
   const toggleFullscreen = () => {
     const doc = document;
+    const elem = document.documentElement;
     const isFull = doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement;
 
     if (!isFull) {
-      if (cinemaContainer.requestFullscreen) {
-        cinemaContainer.requestFullscreen();
-      } else if (cinemaContainer.webkitRequestFullscreen) {
-        cinemaContainer.webkitRequestFullscreen();
-      } else if (cinemaContainer.mozRequestFullScreen) {
-        cinemaContainer.mozRequestFullScreen();
-      } else if (cinemaContainer.msRequestFullscreen) {
-        cinemaContainer.msRequestFullscreen();
-      }
+      if (elem.requestFullscreen) elem.requestFullscreen();
+      else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+      else if (elem.mozRequestFullScreen) elem.mozRequestFullScreen();
+      else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
     } else {
-      if (doc.exitFullscreen) {
-        doc.exitFullscreen();
-      } else if (doc.webkitExitFullscreen) {
-        doc.webkitExitFullscreen();
-      } else if (doc.mozCancelFullScreen) {
-        doc.mozCancelFullScreen();
-      } else if (doc.msExitFullscreen) {
-        doc.msExitFullscreen();
-      }
+      if (doc.exitFullscreen) doc.exitFullscreen();
+      else if (doc.webkitExitFullscreen) doc.webkitExitFullscreen();
+      else if (doc.mozCancelFullScreen) doc.mozCancelFullScreen();
+      else if (doc.msExitFullscreen) doc.msExitFullscreen();
     }
   };
 
   if (fsBtn) {
-    fsBtn.addEventListener('click', toggleFullscreen);
-  }
-
-  // --- Interactive Pixar Scene Micro-Interactions ---
-  // Food bubble badge toggles
-  ['badge-caramel', 'badge-oat', 'badge-size'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('click', () => {
-        el.classList.toggle('selected');
-        window.cafeAudio?.playTap();
-      });
-    }
-  });
-
-  // Order Now button
-  const btnPixarOrder = document.getElementById('btn-pixar-order-now');
-  if (btnPixarOrder) {
-    btnPixarOrder.addEventListener('click', () => {
-      window.cafeAudio?.playConfettiCheer();
-      const badge = document.getElementById('order-sent-badge');
-      if (badge) {
-        badge.style.display = 'flex';
-        badge.classList.add('popInBounce');
-      }
-      setTimeout(() => {
-        window.cafeTimeline?.jumpToScene(3);
-      }, 900);
+    fsBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleFullscreen();
     });
   }
+
+  // --- 8. Keyboard Shortcuts ---
+  window.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (startOverlay && !startOverlay.classList.contains('hidden')) {
+        startAndPlay();
+      } else if (window.cafeTimeline) {
+        window.cafeTimeline.togglePlay();
+        if (window.cafeTimeline.isPlaying) scheduleHideControls();
+        else showControls();
+      }
+    } else if (e.code === 'ArrowLeft') {
+      e.preventDefault();
+      if (window.cafeTimeline) window.cafeTimeline.seek(window.cafeTimeline.currentTime - 5);
+      showControls();
+      scheduleHideControls();
+    } else if (e.code === 'ArrowRight') {
+      e.preventDefault();
+      if (window.cafeTimeline) window.cafeTimeline.seek(window.cafeTimeline.currentTime + 5);
+      showControls();
+      scheduleHideControls();
+    } else if (e.code === 'KeyF') {
+      e.preventDefault();
+      toggleFullscreen();
+    } else if (e.code === 'KeyM') {
+      e.preventDefault();
+      btnMute?.click();
+    }
+  });
 });
