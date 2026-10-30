@@ -283,38 +283,31 @@ document.addEventListener('DOMContentLoaded', () => {
     fsBtn.addEventListener('click', toggleFullscreen);
   }
 
-  // --- Interactive Scene Micro-Interactions ---
-  const btnViewMenu = document.getElementById('btn-mock-view-menu');
-  if (btnViewMenu) {
-    btnViewMenu.addEventListener('click', () => {
-      window.cafeAudio?.playTap();
-      window.cafeTimeline?.jumpToScene(3);
-    });
-  }
+  // --- Interactive Pixar Scene Micro-Interactions ---
+  // Food bubble badge toggles
+  ['badge-caramel', 'badge-oat', 'badge-size'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('click', () => {
+        el.classList.toggle('selected');
+        window.cafeAudio?.playTap();
+      });
+    }
+  });
 
-  const cardCappuccino = document.getElementById('card-cappuccino');
-  if (cardCappuccino) {
-    cardCappuccino.addEventListener('click', () => {
-      window.cafeAudio?.playTap();
-      window.cafeTimeline?.jumpToScene(4);
-    });
-  }
-
-  const btnAddCart = document.getElementById('btn-mock-add-cart');
-  if (btnAddCart) {
-    btnAddCart.addEventListener('click', () => {
-      window.cafeAudio?.playAddToCart();
-      setTimeout(() => window.cafeTimeline?.jumpToScene(5), 600);
-    });
-  }
-
-  const btnAdminConfirm = document.getElementById('btn-admin-confirm');
-  if (btnAdminConfirm) {
-    btnAdminConfirm.addEventListener('click', () => {
-      window.cafeAudio?.playKitchenBell();
-      btnAdminConfirm.textContent = '✓ Order Confirmed (Preparing)';
-      btnAdminConfirm.style.background = '#F59E0B';
-      setTimeout(() => window.cafeTimeline?.jumpToScene(7), 800);
+  // Order Now button
+  const btnPixarOrder = document.getElementById('btn-pixar-order-now');
+  if (btnPixarOrder) {
+    btnPixarOrder.addEventListener('click', () => {
+      window.cafeAudio?.playConfettiCheer();
+      const badge = document.getElementById('order-sent-badge');
+      if (badge) {
+        badge.style.display = 'flex';
+        badge.classList.add('popInBounce');
+      }
+      setTimeout(() => {
+        window.cafeTimeline?.jumpToScene(3);
+      }, 900);
     });
   }
 });

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Little Talk Cafe — Smart QR Ordering & Cafe Management System (Cinematic Promo)</title>
+  <title>Little Talk Cafe — 3D Pixar-Disney Commercial (Ram Jhula, Rishikesh)</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/devices.css">
   <link rel="stylesheet" href="css/scenes.css">
   <link rel="stylesheet" href="css/controls.css">
+  <link rel="stylesheet" href="css/pixar.css">
 </head>
 <body>
 
@@ -32,7 +33,7 @@
       </div>
       <div class="brand-name-group">
         <h1>Little Talk Cafe</h1>
-        <p>Smart QR Ordering & Cafe Management System</p>
+        <p>Ram Jhula, Rishikesh • 3D Pixar-Disney Animated Commercial</p>
       </div>
     </div>
 
@@ -82,626 +83,212 @@
     <div class="cinema-viewport-scaler" id="cinema-scaler">
       <!-- Universal Cross-Browser Hero Start Screen -->
       <div class="cinema-start-overlay" id="cinema-start-overlay">
-      <div class="start-card-hero">
-        <div class="start-play-ring">
-          <svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-        </div>
-        <h2>Little Talk Cafe</h2>
-        <p>Smart QR Ordering & Cafe Management System</p>
-        <span class="start-hint-pill">▶ Click Anywhere to Start Video (All Browsers Supported)</span>
-      </div>
-    </div>
-
-    <!-- 4K High Resolution Canvas Layer -->
-    <canvas id="cinema-canvas"></canvas>
-
-    <!-- Interactive DOM Overlays Layer for All 10 Scenes -->
-    <div class="scene-overlays-container">
-
-      <!-- SCENE 1: CAFE INTRODUCTION (0 - 7s) -->
-      <div class="scene-overlay active" id="scene-overlay-0">
-        <div class="scene1-brand-card">
-          <div class="scene1-logo-emblem">
-            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2">
-              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-              <line x1="6" y1="1" x2="6" y2="4"></line>
-              <line x1="10" y1="1" x2="10" y2="4"></line>
-              <line x1="14" y1="1" x2="14" y2="4"></line>
-            </svg>
+        <div class="start-card-hero">
+          <div class="start-play-ring">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
           </div>
-          <h2 class="scene1-title">Little Talk Cafe</h2>
-          <p class="scene1-tagline">"Good Coffee. Great Conversations. Easy Ordering."</p>
-          <div class="scene1-pills">
-            <span class="scene1-pill">☕ Smart QR Ordering</span>
-            <span class="scene1-pill">⚡ Real-Time Tracking</span>
-            <span class="scene1-pill">📊 Cafe Admin Dashboard</span>
-          </div>
+          <h2>Little Talk Cafe</h2>
+          <p>3D Pixar-Disney Animated Commercial • Ram Jhula, Rishikesh</p>
+          <span class="start-hint-pill">▶ Click Anywhere to Watch 60FPS Video (All Browsers Supported)</span>
         </div>
       </div>
 
-      <!-- SCENE 2: CUSTOMER ARRIVES & SMART TABLE AVAILABILITY (7 - 14s) -->
-      <div class="scene-overlay" id="scene-overlay-1">
-        <div class="cinematic-banner top-banner">
-          <span class="banner-text">Smart Live Table Availability</span>
-        </div>
+      <!-- 4K High Resolution Canvas Layer -->
+      <canvas id="cinema-canvas"></canvas>
 
-        <div class="scene2-hud-container">
-          <div class="hud-header">
-            <h3>Cafe Floor Plan</h3>
-            <span class="tag-chip tag-available"><span class="status-dot green"></span> Live Sync</span>
+      <!-- Interactive DOM Overlays Layer for 6 3D Pixar-Disney Scenes -->
+      <div class="scene-overlays-container">
+
+        <!-- SCENE 1: ARRIVAL IN RISHIKESH (0 - 8s) -->
+        <div class="scene-overlay active" id="scene-overlay-0">
+          <div class="cinematic-banner top-banner">
+            <span class="banner-text">Little Talk Cafe • Ram Jhula, Rishikesh</span>
           </div>
-          <div class="table-grid-hud">
-            <div class="table-hud-card available">
-              <div class="table-hud-number">T1</div>
-              <div class="table-hud-status" style="color: #34D399;"><span class="status-dot green"></span> Open</div>
+
+          <div class="pixar-hud-card scene1-rishikesh-card">
+            <div class="pixar-character-badge">
+              <span>✨</span> Friendly 24-Year-Old Cartoon Character • Mustard Sweater
             </div>
-            <div class="table-hud-card occupied">
-              <div class="table-hud-number">T2</div>
-              <div class="table-hud-status" style="color: #F87171;"><span class="status-dot red"></span> Busy</div>
-            </div>
-            <div class="table-hud-card occupied">
-              <div class="table-hud-number">T3</div>
-              <div class="table-hud-status" style="color: #F87171;"><span class="status-dot red"></span> Busy</div>
-            </div>
-            <div class="table-hud-card available selected-active">
-              <div class="table-hud-number">T4</div>
-              <div class="table-hud-status" style="color: #10B981;"><span class="status-dot green"></span> Selected</div>
-            </div>
-            <div class="table-hud-card occupied">
-              <div class="table-hud-number">T5</div>
-              <div class="table-hud-status" style="color: #F87171;"><span class="status-dot red"></span> Busy</div>
-            </div>
-            <div class="table-hud-card available">
-              <div class="table-hud-number">T6</div>
-              <div class="table-hud-status" style="color: #34D399;"><span class="status-dot green"></span> Open</div>
+            <h2 class="scene1-title" style="font-size: 2.8rem; margin-bottom: 8px;">Little Talk Cafe</h2>
+            <p class="pixar-location-tag">"Panoramic Views of Green Himalayan Hills & The Holy Ganges"</p>
+            <div class="scene1-pills">
+              <span class="scene1-pill">🪵 Rustic Oak Wood</span>
+              <span class="scene1-pill">💡 Warm Fairy Lights</span>
+              <span class="scene1-pill" style="border-color: #F59E0B; background: rgba(245, 158, 11, 0.25);">📍 Table #4 Selected</span>
             </div>
           </div>
-          <p style="font-size: 0.78rem; color: #EAD8C0; line-height: 1.4;">Customer chooses Table 4 with sunlit outdoor view.</p>
         </div>
 
-        <div class="scene2-qr-callout">
-          <div class="acrylic-qr-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm13-2h3v2h-3zm-5 0h3v5h-3zm3 3h2v2h-2zm2 2h3v3h-3zm-5 1h2v2h-2zm2 2h3v2h-3z"/></svg>
+        <!-- SCENE 2: SCAN TABLE QR CODE (8 - 16s) -->
+        <div class="scene-overlay" id="scene-overlay-1">
+          <div class="cinematic-banner top-banner">
+            <span class="banner-text">Scan. Browse. Order. — No App Download Needed</span>
           </div>
-          <div>
-            <h4 style="font-size: 0.95rem; font-weight: 700; color: #FFF;">Acrylic QR Stand</h4>
-            <p style="font-size: 0.75rem; color: var(--coffee-amber);">Table 4 — Scan to Order</p>
+
+          <div class="pixar-hud-card scene2-qr-sparkle-hud">
+            <div class="sparkle-beam-indicator">
+              <span class="sparkle-icon-pulse">✨</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #FDE68A;">Table #4 - Scan to Order</h3>
+              <span class="sparkle-icon-pulse">✨</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--coffee-cream); margin-bottom: 14px; line-height: 1.4;">
+              Soft magical golden amber light sparkles flow from the wooden standee into your smartphone screen.
+            </p>
+            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 18px; border-radius: 20px; background: rgba(16, 185, 129, 0.25); border: 1px solid #10B981; color: #34D399; font-weight: 700; font-size: 0.8rem;">
+              ✓ Sleek Glassmorphic Web App Launched
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- SCENE 3: SCAN QR CODE & MOBILE LAUNCH (14 - 21s) -->
-      <div class="scene-overlay" id="scene-overlay-2">
-        <div class="cinematic-banner top-banner">
-          <span class="banner-text">Scan. Browse. Order.</span>
-        </div>
+        <!-- SCENE 3: BROWSE FOOD & ORDER SENT (16 - 26s) -->
+        <div class="scene-overlay" id="scene-overlay-2">
+          <div class="cinematic-banner top-banner">
+            <span class="banner-text">Mouthwatering 3D CGI Menu & Instant Kitchen Dispatch</span>
+          </div>
 
-        <div class="phone-mockup-wrapper">
-          <div class="phone-screen">
-            <div class="phone-glare"></div>
-            <div class="phone-status-bar">
-              <span>9:41</span>
-              <div class="dynamic-island"></div>
-              <span>5G 100%</span>
+          <div class="pixar-hud-card scene3-food-badges-hud">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #FFF;">Artisan Selection</h3>
+              <span class="tag-chip tag-amber">Table #4</span>
+            </div>
+            <p style="font-size: 0.78rem; color: #EAD8C0; margin-bottom: 10px;">
+              Steaming Cappuccino • Crispy Croissant • Avocado Toast
+            </p>
+
+            <!-- Cute Interactive Bubble UI Badges -->
+            <div class="interactive-badge-group">
+              <span class="food-bubble-badge selected" id="badge-caramel">⭐ Extra Caramel</span>
+              <span class="food-bubble-badge selected" id="badge-oat">🌾 Oat Milk</span>
+              <span class="food-bubble-badge selected" id="badge-size">☕ Medium Size</span>
             </div>
 
-            <!-- Viewfinder Scanner dissolving to mobile site -->
-            <div class="camera-viewfinder-overlay" id="scan-viewfinder">
-              <div class="viewfinder-box">
-                <div class="viewfinder-corner corner-tl"></div>
-                <div class="viewfinder-corner corner-tr"></div>
-                <div class="viewfinder-corner corner-bl"></div>
-                <div class="viewfinder-corner corner-br"></div>
-                <div class="laser-scanner-line"></div>
-                <div class="acrylic-qr-icon" style="width: 70px; height: 70px;">
-                  <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zm2 2v4h4V5zm8-2h8v8h-8zm2 2v4h4V5zM3 13h8v8H3zm2 2v4h4v-4zm13-2h3v2h-3zm-5 0h3v5h-3zm3 3h2v2h-2zm2 2h3v3h-3zm-5 1h2v2h-2zm2 2h3v2h-3z"/></svg>
-                </div>
+            <!-- Espresso-Brown Order Now Button -->
+            <button class="btn-order-now-espresso" id="btn-pixar-order-now">
+              <span>Order Now</span>
+              <span>$8.50</span>
+            </button>
+
+            <!-- Confetti & Checkmark Confirmation -->
+            <div class="order-sent-confirmation" id="order-sent-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Order Sent to Kitchen! 🎉</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCENE 4: KITCHEN MATCH-CUT & BARISTA CRAFT (26 - 36s) -->
+        <div class="scene-overlay" id="scene-overlay-3">
+          <div class="cinematic-banner top-banner">
+            <span class="banner-text">Kitchen Display System • Jolly Barista Craft</span>
+          </div>
+
+          <div class="pixar-hud-card scene4-kds-hud">
+            <div class="kds-tablet-header">
+              <span style="font-weight: 800; color: #FFF; font-size: 0.95rem;">KDS Tablet Alert</span>
+              <span class="kds-live-tag"><span class="status-dot red"></span> LIVE TICKET</span>
+            </div>
+
+            <div class="kds-ticket-detail">
+              <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.95rem; color: #FDE68A; margin-bottom: 6px;">
+                <span>Table #4</span>
+                <span>Ticket #104</span>
               </div>
-              <div class="viewfinder-label">QR Code Detected • Table 4</div>
+              <p style="font-size: 0.8rem; color: #FFF; line-height: 1.4;">
+                • 1x Caramel Macchiato (Extra Caramel, Oat Milk)<br>
+                • 1x Warm Golden Croissant
+              </p>
             </div>
 
-            <!-- Mobile Welcome Screen -->
-            <div class="mobile-welcome-screen" id="mobile-welcome">
-              <div class="mobile-cafe-logo">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2">
-                  <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                  <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-                  <line x1="6" y1="1" x2="6" y2="4"></line>
-                  <line x1="10" y1="1" x2="10" y2="4"></line>
-                </svg>
-              </div>
-              <div class="mobile-table-tag">📍 Table 4 — Dine In</div>
-              <h2 class="mobile-welcome-title">Little Talk Cafe</h2>
-              <p class="mobile-welcome-desc">Welcome! Enjoy contactless ordering, real-time kitchen updates, and personalized coffee.</p>
-              <button class="btn-view-menu" id="btn-mock-view-menu">
-                View Full Menu
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
+            <div class="barista-thumbs-up-tag">
+              <span>👍</span> Jolly Barista Thumbs-Up & Brewing Rich Espresso
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- SCENE 4: BROWSE COFFEE & FOOD MENU (21 - 30s) -->
-      <div class="scene-overlay" id="scene-overlay-3">
-        <div class="cinematic-banner top-banner">
-          <span class="banner-text">Handcrafted Coffee & Gourmet Treats</span>
-        </div>
+        <!-- SCENE 5: LIVE STATUS TRACKER & WAITER DELIVERY (36 - 46s) -->
+        <div class="scene-overlay" id="scene-overlay-4">
+          <div class="cinematic-banner top-banner">
+            <span class="banner-text">Live Order Tracking & Table Service</span>
+          </div>
 
-        <div class="phone-mockup-wrapper">
-          <div class="phone-screen">
-            <div class="phone-glare"></div>
-            <div class="phone-status-bar">
-              <span>9:42</span>
-              <div class="dynamic-island"></div>
-              <span>Table 4</span>
+          <div class="pixar-hud-card scene5-tracker-hud">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: #FFF;">Table #4 Live Status</h3>
+              <span class="tag-chip tag-available"><span class="status-dot green"></span> Live Sync</span>
             </div>
 
-            <div class="mobile-menu-header">
-              <div class="menu-brand-compact">Little Talk Cafe</div>
-              <span class="tag-chip tag-amber">Table 4</span>
+            <!-- Glowing Timeline Nodes -->
+            <div class="progress-track-bar">
+              <div class="track-step-node">
+                <div class="step-circle" style="background: #10B981;">✓</div>
+                <span class="step-label">Placed</span>
+              </div>
+              <div class="track-step-node">
+                <div class="step-circle" style="background: #10B981;">❤️</div>
+                <span class="step-label">Brewing</span>
+              </div>
+              <div class="track-step-node active">
+                <div class="step-circle" style="animation: pulseDot 1s infinite alternate;">🎉</div>
+                <span class="step-label" style="color: #34D399; font-weight: 800;">Order Ready!</span>
+              </div>
             </div>
 
-            <div class="menu-categories-scroll">
-              <div class="cat-pill active">☕ Coffee</div>
-              <div class="cat-pill">🍵 Tea</div>
-              <div class="cat-pill">🥤 Cold Drinks</div>
-              <div class="cat-pill">🥪 Food</div>
-              <div class="cat-pill">🍰 Desserts</div>
-            </div>
-
-            <div class="phone-content">
-              <div class="menu-items-list">
-                <!-- Cappuccino -->
-                <div class="menu-card selected-highlight" id="card-cappuccino">
-                  <img src="assets/scene4_cappuccino_sandwich.jpg" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='public/assets/scene4_cappuccino_sandwich.jpg';}" class="menu-item-img" alt="Cappuccino">
-                  <div class="menu-item-info">
-                    <div class="menu-item-title">Artisan Cappuccino</div>
-                    <div class="menu-item-desc">Double espresso shot with velvety micro-foam latte art.</div>
-                    <div class="menu-item-bottom">
-                      <span class="menu-item-price">$4.50</span>
-                      <button class="btn-add-mini">+</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Vanilla Latte -->
-                <div class="menu-card">
-                  <img src="assets/scene1_cafe_intro.jpg" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='public/assets/scene1_cafe_intro.jpg';}" class="menu-item-img" alt="Latte">
-                  <div class="menu-item-info">
-                    <div class="menu-item-title">Madagascar Vanilla Latte</div>
-                    <div class="menu-item-desc">Single-origin espresso infused with natural bourbon vanilla.</div>
-                    <div class="menu-item-bottom">
-                      <span class="menu-item-price">$4.75</span>
-                      <button class="btn-add-mini">+</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Espresso -->
-                <div class="menu-card">
-                  <img src="assets/scene8_barista_pour.jpg" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='public/assets/scene8_barista_pour.jpg';}" class="menu-item-img" alt="Espresso">
-                  <div class="menu-item-info">
-                    <div class="menu-item-title">Single Origin Espresso</div>
-                    <div class="menu-item-desc">Rich crema with floral notes and dark chocolate aroma.</div>
-                    <div class="menu-item-bottom">
-                      <span class="menu-item-price">$3.25</span>
-                      <button class="btn-add-mini">+</button>
-                    </div>
-                  </div>
-                </div>
+            <div style="display: flex; align-items: center; gap: 12px; background: rgba(18, 11, 7, 0.7); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 10px 14px;">
+              <div style="font-size: 1.6rem;">🧑‍🍳</div>
+              <div>
+                <h4 style="font-size: 0.85rem; font-weight: 800; color: #FFF;">Smiling Waiter Delivery</h4>
+                <p style="font-size: 0.72rem; color: var(--coffee-cream);">Steaming coffee & warm croissant served to Table #4</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- SCENE 5: CUSTOMIZE THE ORDER (30 - 40s) -->
-      <div class="scene-overlay" id="scene-overlay-4">
-        <div class="cinematic-banner top-banner">
-          <span class="banner-text">Your Order, Your Way</span>
-        </div>
-
-        <div class="phone-mockup-wrapper">
-          <div class="phone-screen">
-            <div class="phone-glare"></div>
-            <div class="phone-status-bar">
-              <span>9:43</span>
-              <div class="dynamic-island"></div>
-              <span>Customizing</span>
+        <!-- SCENE 6: GOLDEN HOUR SIPS & BRAND FINALE (46 - 55s) -->
+        <div class="scene-overlay" id="scene-overlay-5">
+          <!-- 3D Holographic Google Maps Badge -->
+          <div class="pixar-hud-card scene6-hologram-hud">
+            <div class="hologram-pin">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Live GPS Route</span>
             </div>
-
-            <!-- Customizer Modal Sheet -->
-            <div class="customizer-sheet">
-              <div class="customizer-header">
-                <div>
-                  <div class="customizer-title">Artisan Cappuccino</div>
-                  <span style="font-size: 0.72rem; color: #10B981;">Custom Roasted Beans</span>
-                </div>
-                <div class="customizer-base-price" id="customizer-live-price">$9.50</div>
-              </div>
-
-              <!-- Quantity -->
-              <div class="custom-option-group">
-                <label>Quantity</label>
-                <div class="qty-stepper">
-                  <span style="cursor: pointer;">−</span>
-                  <span class="qty-val" id="mock-qty-val">2 cups</span>
-                  <span style="cursor: pointer;">+</span>
-                </div>
-              </div>
-
-              <!-- Cup Size -->
-              <div class="custom-option-group">
-                <label>Cup Size</label>
-                <div class="pill-selector">
-                  <div class="option-btn">Small</div>
-                  <div class="option-btn selected">Medium (+$0.50)</div>
-                  <div class="option-btn">Large (+$1.00)</div>
-                </div>
-              </div>
-
-              <!-- Sweetness -->
-              <div class="custom-option-group">
-                <label>Sugar Level</label>
-                <div class="pill-selector">
-                  <div class="option-btn">None (0%)</div>
-                  <div class="option-btn selected">Less Sugar (50%)</div>
-                  <div class="option-btn">Regular</div>
-                </div>
-              </div>
-
-              <!-- Special Instructions -->
-              <div class="custom-option-group">
-                <label>Special Barista Note</label>
-                <input type="text" class="instruction-input-mock" value="Extra hot, velvety foam" readonly>
-              </div>
-
-              <!-- Add to Cart Button -->
-              <button class="btn-add-cart-large" id="btn-mock-add-cart">
-                <span>Add 2 Items to Cart</span>
-                <span>$9.50</span>
-              </button>
-
-              <!-- Floating Cart Drawer -->
-              <div class="cart-floating-drawer">
-                <div class="cart-items-preview">
-                  <div class="cart-item-row">
-                    <span>2x Artisan Cappuccino (Extra Hot)</span>
-                    <span style="font-weight: 700; color: #FFF;">$9.50</span>
-                  </div>
-                  <div class="cart-item-row">
-                    <span>1x Gourmet Sourdough Sandwich</span>
-                    <span style="font-weight: 700; color: #FFF;">$8.00</span>
-                  </div>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(213, 141, 73, 0.2); padding-top: 8px;">
-                  <span style="font-size: 0.85rem; font-weight: 700;">Order Total:</span>
-                  <span style="font-size: 1.15rem; font-weight: 800; color: var(--coffee-amber);">$17.50</span>
-                </div>
-              </div>
-            </div>
+            <p style="font-size: 0.82rem; font-weight: 700; color: #FFF;">
+              Little Talk Cafe, Ram Jhula, Rishikesh
+            </p>
+            <p style="font-size: 0.7rem; color: #93C5FD; margin-top: 4px;">
+              Himalayan Sunset over the Turquoise Ganges
+            </p>
           </div>
-        </div>
-      </div>
 
-      <!-- SCENE 6: CHECKOUT & GOOGLE LOGIN (40 - 49s) -->
-      <div class="scene-overlay" id="scene-overlay-5">
-        <div class="cinematic-banner top-banner">
-          <span class="banner-text">Simple. Secure. Convenient.</span>
-        </div>
-
-        <div class="phone-mockup-wrapper">
-          <div class="phone-screen">
-            <div class="phone-glare"></div>
-            <div class="phone-status-bar">
-              <span>9:44</span>
-              <div class="dynamic-island"></div>
-              <span>Checkout</span>
-            </div>
-
-            <div class="checkout-view">
-              <div class="checkout-header">Review & Submit Order</div>
-              <div class="checkout-field">
-                <label>Customer</label>
-                <span>Alex Morgan</span>
-              </div>
-              <div class="checkout-field">
-                <label>Table</label>
-                <span class="tag-chip tag-available">Table 4</span>
-              </div>
-              <div class="checkout-field">
-                <label>Service Mode</label>
-                <span style="color: var(--coffee-amber);">Cafe Service</span>
-              </div>
-              <div class="checkout-field">
-                <label>Payment Method</label>
-                <span>UPI / Online / Cash</span>
-              </div>
-              <div class="checkout-field" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4);">
-                <label style="color: #FFF;">Total Amount</label>
-                <span style="font-size: 1.15rem; color: #34D399;">$17.50</span>
-              </div>
-
-              <div style="font-size: 0.72rem; color: #A8988B; text-align: center; margin-top: 4px;">
-                Cart securely preserved across authentication.
-              </div>
-            </div>
-
-            <!-- Google Sign-in Modal Overlay -->
-            <div class="google-signin-modal" id="google-auth-popup">
-              <svg class="google-g-logo" viewBox="0 0 48 48">
-                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          <!-- Grand Brand Finale Typography -->
+          <div class="scene6-grand-finale-brand">
+            <div class="scene1-logo-emblem" style="width: 72px; height: 72px; border-radius: 20px; margin: 0 auto 16px auto;">
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                <line x1="6" y1="1" x2="6" y2="4"></line>
+                <line x1="10" y1="1" x2="10" y2="4"></line>
+                <line x1="14" y1="1" x2="14" y2="4"></line>
               </svg>
-              <div class="google-modal-title">Sign in with Google</div>
-              <p class="google-modal-desc">Connect seamlessly to Little Talk Cafe</p>
-              <button class="btn-continue-google">
-                <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFF" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/></svg>
-                Continue as Alex Morgan
-              </button>
-              <div class="google-auth-success-badge">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Verified & Cart Preserved
-              </div>
+            </div>
+
+            <h1 class="pixar-brand-title">Little Talk Cafe</h1>
+            <p class="pixar-brand-tagline">"Good Coffee. Great Conversations. Easy Ordering."</p>
+
+            <div class="pixar-feature-pills">
+              <div class="pixar-pill-item">✨ Scan • Order • Enjoy</div>
+              <div class="pixar-pill-item">⚡ Real-Time Tracking</div>
+              <div class="pixar-pill-item">🏔️ Ram Jhula, Rishikesh</div>
             </div>
           </div>
         </div>
+
       </div>
-
-      <!-- SCENE 7: CAFE ADMIN DESKTOP DASHBOARD (49 - 59s) -->
-      <div class="scene-overlay" id="scene-overlay-6">
-        <div class="cinematic-banner top-banner">
-          <span class="banner-text">Real-Time Cafe Admin Dashboard</span>
-        </div>
-
-        <div class="desktop-monitor-wrapper">
-          <div class="monitor-frame">
-            <div class="monitor-screen">
-              <div class="admin-navbar">
-                <div class="admin-nav-brand">
-                  <div class="brand-logo-mark" style="width: 26px; height: 26px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path></svg>
-                  </div>
-                  <span>Little Talk Cafe — Admin POS</span>
-                </div>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                  <span class="tag-chip tag-available"><span class="status-dot green"></span> Live Sync Active</span>
-                  <span style="font-size: 0.8rem; color: #FFF; font-weight: 600;">Shift: Morning #1</span>
-                </div>
-              </div>
-
-              <!-- Dashboard Stats -->
-              <div class="admin-stats-row">
-                <div class="admin-stat-card">
-                  <div class="stat-label">Active Tables</div>
-                  <div class="stat-value" style="color: #34D399;">5 / 8 Occupied</div>
-                </div>
-                <div class="admin-stat-card">
-                  <div class="stat-label">Today's Orders</div>
-                  <div class="stat-value">48 Orders</div>
-                </div>
-                <div class="admin-stat-card">
-                  <div class="stat-label">Today's Revenue</div>
-                  <div class="stat-value" style="color: var(--coffee-amber);">$1,840.50</div>
-                </div>
-              </div>
-
-              <!-- Incoming Order Modal Popover -->
-              <div class="incoming-order-modal">
-                <div class="order-alert-badge">
-                  <span class="status-dot green"></span> NEW ORDER RECEIVED • DING!
-                </div>
-                <div class="order-alert-title">Order #1042 — Table 4</div>
-                <div style="font-size: 0.8rem; color: #B8A89A;">Customer: Alex Morgan • Payment: Paid via UPI</div>
-
-                <div class="order-items-box">
-                  <div style="display: flex; justify-content: space-between; font-weight: 700; color: #FFF; margin-bottom: 4px;">
-                    <span>2x Artisan Cappuccino</span>
-                    <span style="color: var(--coffee-amber);">$9.50</span>
-                  </div>
-                  <div style="font-size: 0.72rem; color: #EAD8C0; margin-bottom: 8px;">Notes: Medium, Less Sugar (50%), Extra Hot</div>
-
-                  <div style="display: flex; justify-content: space-between; font-weight: 700; color: #FFF;">
-                    <span>1x Gourmet Sourdough Sandwich</span>
-                    <span style="color: var(--coffee-amber);">$8.00</span>
-                  </div>
-                </div>
-
-                <div class="prep-time-selector">
-                  <span>Estimated Preparation Time:</span>
-                  <div class="prep-slider-mock">
-                    <span class="prep-pill">5m</span>
-                    <span class="prep-pill active">10 mins</span>
-                    <span class="prep-pill">15m</span>
-                  </div>
-                </div>
-
-                <button class="btn-confirm-order" id="btn-admin-confirm">
-                  Confirm Order (10 min prep)
-                </button>
-              </div>
-
-              <!-- Simulated Admin Mouse Cursor -->
-              <div class="desktop-cursor" style="bottom: 120px; right: 280px;">
-                <svg viewBox="0 0 24 24"><path d="M4 0l16 12.279-6.951 1.17 4.325 8.817-3.596 1.734-4.35-8.879-5.428 5.428z"/></svg>
-              </div>
-            </div>
-
-            <div class="monitor-chin">
-              <span class="monitor-logo">LITTLE TALK CAFE DISPLAY</span>
-            </div>
-          </div>
-          <div class="monitor-stand-neck"></div>
-          <div class="monitor-stand-base"></div>
-        </div>
-      </div>
-
-      <!-- SCENE 8: KITCHEN PREPARATION & KDS (59 - 68s) -->
-      <div class="scene-overlay" id="scene-overlay-7">
-        <div class="cinematic-banner top-banner">
-          <span class="banner-text">Kitchen Display System (KDS) & Fresh Barista Craft</span>
-        </div>
-
-        <div class="kds-split-layout">
-          <!-- Left: Kitchen Display System Kanban -->
-          <div class="kds-board-panel">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-              <h3 style="font-size: 1.1rem; color: #FFF;">Kitchen Queue Monitor</h3>
-              <span class="tag-chip tag-amber">Live Orders</span>
-            </div>
-
-            <div class="kds-columns-row">
-              <!-- New -->
-              <div class="kds-col new">
-                <div class="kds-col-header">
-                  <span>NEW</span>
-                  <span>0</span>
-                </div>
-              </div>
-
-              <!-- Preparing -->
-              <div class="kds-col prep">
-                <div class="kds-col-header">
-                  <span>PREPARING</span>
-                  <span>1</span>
-                </div>
-
-                <div class="kds-ticket-card">
-                  <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-weight: 800; color: #FFF;">#1042 • T4</span>
-                    <div class="kds-timer-badge">09:42</div>
-                  </div>
-                  <div style="font-size: 0.78rem; color: #EAD8C0;">
-                    • 2x Cappuccino (Extra Hot)<br>
-                    • 1x Sourdough Sandwich
-                  </div>
-                  <button class="btn-mark-ready">Mark as Ready ✓</button>
-                </div>
-              </div>
-
-              <!-- Ready -->
-              <div class="kds-col ready">
-                <div class="kds-col-header">
-                  <span>READY</span>
-                  <span>3</span>
-                </div>
-                <div style="font-size: 0.75rem; color: #34D399; padding: 6px; background: rgba(16, 185, 129, 0.1); border-radius: 6px;">
-                  ✓ Order #1040 (Table 2) Served
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right: Barista Pouring Visual Overlay Card -->
-          <div style="flex: 1; display: flex; align-items: flex-end; justify-content: flex-end; padding: 40px;">
-            <div class="glass-panel" style="padding: 18px 24px; max-width: 360px;">
-              <span class="tag-chip tag-amber" style="margin-bottom: 8px;">Handcrafted Quality</span>
-              <h4 style="font-size: 1.05rem; font-weight: 700; color: #FFF;">Silky Micro-foam Latte Art</h4>
-              <p style="font-size: 0.78rem; color: var(--coffee-cream); margin-top: 4px;">Steamed to perfection at 65°C, ensuring velvety texture and rich espresso balance.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SCENE 9: LIVE ORDER TRACKING (68 - 77s) -->
-      <div class="scene-overlay" id="scene-overlay-8">
-        <div class="cinematic-banner top-banner">
-          <span class="banner-text">Live Order Tracking & Table Service</span>
-        </div>
-
-        <div class="phone-mockup-wrapper">
-          <div class="phone-screen">
-            <div class="phone-glare"></div>
-            <div class="phone-status-bar">
-              <span>9:52</span>
-              <div class="dynamic-island"></div>
-              <span>Live Status</span>
-            </div>
-
-            <div class="tracking-view">
-              <div class="tracking-status-banner">
-                <div style="font-size: 1.15rem; font-weight: 800; margin-bottom: 2px;">🎉 Your Order is Ready!</div>
-                <div style="font-size: 0.75rem; opacity: 0.9;">Freshly prepared and ready to enjoy</div>
-              </div>
-
-              <!-- 4-Step Animated Timeline -->
-              <div class="timeline-steps">
-                <div class="timeline-step-item completed">
-                  <div class="timeline-step-dot"></div>
-                  <div style="color: #FFF;">Order Placed</div>
-                  <span style="font-size: 0.7rem; color: #34D399;">9:44 AM • Confirmed</span>
-                </div>
-                <div class="timeline-step-item completed">
-                  <div class="timeline-step-dot"></div>
-                  <div style="color: #FFF;">Kitchen Accepted</div>
-                  <span style="font-size: 0.7rem; color: #34D399;">9:45 AM • 10m prep</span>
-                </div>
-                <div class="timeline-step-item completed">
-                  <div class="timeline-step-dot"></div>
-                  <div style="color: #FFF;">Preparing Coffee & Food</div>
-                  <span style="font-size: 0.7rem; color: #34D399;">9:48 AM • Barista station</span>
-                </div>
-                <div class="timeline-step-item active">
-                  <div class="timeline-step-dot"></div>
-                  <div style="color: #34D399; font-weight: 800;">Ready for Table Delivery!</div>
-                  <span style="font-size: 0.7rem; color: #F5EFEB;">Waiter heading to Table 4</span>
-                </div>
-              </div>
-
-              <!-- Delivery Mode Card -->
-              <div class="delivery-mode-card">
-                <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(213, 141, 73, 0.2); display: flex; align-items: center; justify-content: center;">
-                  ☕
-                </div>
-                <div>
-                  <div style="font-size: 0.82rem; font-weight: 700; color: #FFF;">Cafe Table Service</div>
-                  <div style="font-size: 0.7rem; color: var(--coffee-amber);">Delivered with smile to Table 4</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SCENE 10: HAPPY ENDING & GRAND BRAND REVEAL (77 - 80s) -->
-      <div class="scene-overlay" id="scene-overlay-9">
-        <div class="scene10-finale-overlay">
-          <div class="scene1-logo-emblem" style="width: 80px; height: 80px; border-radius: 24px; margin-bottom: 20px;">
-            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2">
-              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
-              <line x1="6" y1="1" x2="6" y2="4"></line>
-              <line x1="10" y1="1" x2="10" y2="4"></line>
-              <line x1="14" y1="1" x2="14" y2="4"></line>
-            </svg>
-          </div>
-
-          <h1 class="brand-finale-title">Little Talk Cafe</h1>
-          <p class="brand-finale-tagline">"Good Coffee. Great Conversations. Easy Ordering."</p>
-
-          <div class="brand-finale-pillars">
-            <div class="pillar-chip">✨ Smart QR Ordering</div>
-            <div class="pillar-chip">⚡ Real-Time Order Tracking</div>
-            <div class="pillar-chip">📊 Seamless Cafe Management</div>
-          </div>
-
-          <p style="font-size: 0.85rem; color: var(--coffee-amber); margin-top: 24px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700;">
-            Elevate Your Cafe Experience Today
-          </p>
-        </div>
-      </div>
-
-    </div>
 
       <!-- Synced Teleprompter / Subtitles Ribbon -->
       <div class="teleprompter-ribbon">
-        <div class="teleprompter-scene-title" id="teleprompter-title">SCENE 1: CAFE INTRODUCTION</div>
+        <div class="teleprompter-scene-title" id="teleprompter-title">SCENE 1: ARRIVAL IN RISHIKESH</div>
         <div class="teleprompter-caption" id="teleprompter-caption">
-          Welcome to Little Talk Cafe — Good Coffee. Great Conversations. Easy Ordering.
+          Welcome to Little Talk Cafe — Ram Jhula, Rishikesh | Panoramic Ganges View
         </div>
       </div>
     </div> <!-- /#cinema-scaler -->
@@ -709,23 +296,19 @@
 
   <!-- Director's Studio Controls Bar -->
   <footer class="player-controls-panel">
-    <!-- Scrubber Track with Chapter Markers -->
+    <!-- Scrubber Track with 6 Scene Markers -->
     <div class="timeline-track-container" id="timeline-scrubber">
       <div class="timeline-track-bg">
         <div class="timeline-progress-fill" id="timeline-progress"></div>
         <div class="scrubber-handle" id="scrubber-handle"></div>
 
-        <!-- 10 Chapter Markers -->
+        <!-- 6 Scene Markers (0s, 8s, 16s, 26s, 36s, 46s) -->
         <div class="timeline-marker" style="left: 0%;"></div>
-        <div class="timeline-marker" style="left: 8.75%;"></div>
-        <div class="timeline-marker" style="left: 17.5%;"></div>
-        <div class="timeline-marker" style="left: 26.25%;"></div>
-        <div class="timeline-marker" style="left: 37.5%;"></div>
-        <div class="timeline-marker" style="left: 50.0%;"></div>
-        <div class="timeline-marker" style="left: 61.25%;"></div>
-        <div class="timeline-marker" style="left: 73.75%;"></div>
-        <div class="timeline-marker" style="left: 85.0%;"></div>
-        <div class="timeline-marker" style="left: 96.25%;"></div>
+        <div class="timeline-marker" style="left: 14.5%;"></div>
+        <div class="timeline-marker" style="left: 29.1%;"></div>
+        <div class="timeline-marker" style="left: 47.3%;"></div>
+        <div class="timeline-marker" style="left: 65.5%;"></div>
+        <div class="timeline-marker" style="left: 83.6%;"></div>
       </div>
     </div>
 
@@ -745,7 +328,7 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2"/></svg>
         </button>
 
-        <div class="time-readout" id="time-display">0:00 / 1:20</div>
+        <div class="time-readout" id="time-display">0:00 / 0:55</div>
 
         <!-- Speed Switcher -->
         <select class="control-btn" id="speed-select" style="background: rgba(45,30,20,0.8); outline: none;">

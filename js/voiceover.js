@@ -1,5 +1,5 @@
 // Little Talk Cafe - Voiceover & Narration Engine
-// Delivers professional, friendly, confident English voiceover synced with scene captions
+// Delivers professional, friendly, confident English voiceover synced with Pixar-Disney 3D scenes
 
 class CafeVoiceoverEngine {
   constructor() {
@@ -13,77 +13,49 @@ class CafeVoiceoverEngine {
     this.currentUtterance = null;
     this.currentSceneId = -1;
 
-    // 10 Scene Scripts exactly matching user requirements
+    // 6 Pixar-Disney Scene Scripts exactly matching user story
     this.scripts = [
       {
         sceneId: 0,
         startSec: 0.5,
-        title: "Cafe Introduction",
-        text: "Welcome to Little Talk Cafe. Where good coffee, great conversations, and easy ordering come together.",
-        caption: "Welcome to Little Talk Cafe — Good Coffee. Great Conversations. Easy Ordering."
+        title: "Arrival in Rishikesh",
+        text: "A cheerful morning in Ram Jhula, Rishikesh. Our friendly traveler walks into Little Talk Cafe, overlooking the holy Ganges river.",
+        caption: "Little Talk Cafe • Ram Jhula, Rishikesh | Panoramic Ganges View & Table #4"
       },
       {
         sceneId: 1,
-        startSec: 7.5,
-        title: "Customer Arrives",
-        text: "Finding an open table is effortless with live table availability. Take a seat at your favorite spot.",
-        caption: "Smart Table Availability: Green indicators show open seating in real time."
+        startSec: 8.5,
+        title: "Scan Table QR Code",
+        text: "Aim your camera at Table four. Magical amber sparks leap from the wooden standee, instantly opening the glassmorphic web app with no download needed.",
+        caption: "Table #4 - Scan to Order • Instant Glassmorphic Web App, No Download Needed"
       },
       {
         sceneId: 2,
-        startSec: 14.5,
-        title: "Scan QR Code",
-        text: "Simply scan the table QR code with your smartphone camera. No app download needed.",
-        caption: "Scan. Browse. Order. Instant access right from your phone browser."
+        startSec: 16.5,
+        title: "Customize & Order Now",
+        text: "Scroll through mouthwatering 3D food cards. Add Oat Milk and Extra Caramel, then tap Order Now for an instant kitchen ticket with celebratory confetti.",
+        caption: "Mouthwatering 3D Menu • Extra Caramel & Oat Milk • Order Sent to Kitchen! 🎉"
       },
       {
         sceneId: 3,
-        startSec: 21.5,
-        title: "Browse Coffee & Food",
-        text: "Explore our rich digital menu featuring freshly brewed specialty coffee, artisan sandwiches, and gourmet desserts.",
-        caption: "Browse handcrafted espresso drinks and fresh gourmet treats."
+        startSec: 26.5,
+        title: "Kitchen Match-Cut & Barista",
+        text: "Match-cut into the kitchen! The Kitchen Display tablet chimes for Table four. Our jolly cartoon barista brews rich espresso with frothy latte art.",
+        caption: "Kitchen Display Alert: Table #4 • Jolly Barista Crafting with Love & Silky Steam"
       },
       {
         sceneId: 4,
-        startSec: 30.5,
-        title: "Customize the Order",
-        text: "Customize your drink your way. Select cup size, sweetness, and temperature with instant price updates.",
-        caption: "Your Order, Your Way: Select size, sweetness, and custom barista notes."
+        startSec: 36.5,
+        title: "Live Tracker & Delivery",
+        text: "Back at Table four, live tracking glows from Brewing with Love to Order Ready! A smiling waiter delivers the fresh coffee and warm golden croissant.",
+        caption: "Live Tracker: Brewing with Love ➔ Order Ready! Fresh Delivery to Table 4"
       },
       {
         sceneId: 5,
-        startSec: 40.5,
-        title: "Checkout & Google Login",
-        text: "Fast, frictionless checkout with Google One-Tap. Your cart is always securely preserved.",
-        caption: "Simple. Secure. Convenient. 1-Tap Google Sign-in with flexible payment."
-      },
-      {
-        sceneId: 6,
-        startSec: 49.5,
-        title: "Admin Receives Order",
-        text: "The order instantly arrives on the cafe admin dashboard with table number, customizations, and live prep timer.",
-        caption: "Real-Time Cafe Admin: Instant order notification and table tracking."
-      },
-      {
-        sceneId: 7,
-        startSec: 59.5,
-        title: "Kitchen Preparation",
-        text: "Baristas and chefs prepare your items in sync using the interactive Kitchen Display System.",
-        caption: "Kitchen Display System (KDS): Live ticket progression from New to Ready."
-      },
-      {
-        sceneId: 8,
-        startSec: 68.5,
-        title: "Live Order Tracking",
-        text: "Follow your order status in real time. Pick it up fresh at the counter, or enjoy table service.",
-        caption: "Live Order Tracking: Placed → Confirmed → Preparing → Ready!"
-      },
-      {
-        sceneId: 9,
-        startSec: 77.5,
-        title: "Happy Ending & Brand Reveal",
-        text: "Little Talk Cafe. Good Coffee. Great Conversations. Easy Ordering. Elevate your cafe today.",
-        caption: "Little Talk Cafe — Smart QR Ordering & Seamless Cafe Management."
+        startSec: 46.5,
+        title: "Golden Hour Finale & Brand Reveal",
+        text: "A cozy sip as the golden sunset kisses the Himalayas and river Ganges. Little Talk Cafe: Scan, Order, Enjoy.",
+        caption: "Scan • Order • Enjoy | Little Talk Cafe, Ram Jhula, Rishikesh"
       }
     ];
 
@@ -116,7 +88,6 @@ class CafeVoiceoverEngine {
     const script = this.scripts.find(s => s.sceneId === sceneId);
     if (!script) return;
 
-    // Update UI subtitle immediately
     this.updateSubtitle(script.caption, script.text);
 
     if (!this.isEnabled || !this.synth) return;
@@ -169,7 +140,6 @@ class CafeVoiceoverEngine {
   }
 
   highlightWord(charIndex, charLength, caption) {
-    // Dynamic subtitle karaoke glow
     const subtitleEl = document.getElementById('teleprompter-caption');
     if (!subtitleEl) return;
     subtitleEl.classList.add('pulse-glow');

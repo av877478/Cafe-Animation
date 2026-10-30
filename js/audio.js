@@ -338,6 +338,56 @@ class CafeAudioEngine {
       osc.stop(now + idx * 0.1 + 0.8);
     });
   }
+
+  // 9. Pixar Magical Amber Sparkle (Pentatonic cascading shimmer)
+  playMagicalSparkle() {
+    if (!this.ctx || !this.isInitialized) return;
+    const now = this.ctx.currentTime;
+    const sparkleNotes = [1318.51, 1567.98, 1760.00, 2093.00, 2637.02, 3135.96];
+
+    sparkleNotes.forEach((freq, idx) => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+
+      gain.gain.setValueAtTime(0, now + idx * 0.05);
+      gain.gain.linearRampToValueAtTime(0.18, now + idx * 0.05 + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.05 + 0.45);
+
+      osc.connect(gain);
+      gain.connect(this.sfxGain);
+
+      osc.start(now + idx * 0.05);
+      osc.stop(now + idx * 0.05 + 0.5);
+    });
+  }
+
+  // 10. Colorful Confetti Celebration Chime
+  playConfettiCheer() {
+    if (!this.ctx || !this.isInitialized) return;
+    const now = this.ctx.currentTime;
+    const cheerNotes = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98];
+
+    cheerNotes.forEach((freq, idx) => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, now + idx * 0.04);
+
+      gain.gain.setValueAtTime(0, now + idx * 0.04);
+      gain.gain.linearRampToValueAtTime(0.2, now + idx * 0.04 + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.04 + 0.6);
+
+      osc.connect(gain);
+      gain.connect(this.sfxGain);
+
+      osc.start(now + idx * 0.04);
+      osc.stop(now + idx * 0.04 + 0.65);
+    });
+  }
 }
 
 window.cafeAudio = new CafeAudioEngine();

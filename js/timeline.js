@@ -1,8 +1,8 @@
-// Little Talk Cafe - Master Cinematic Timeline Engine (60fps, 4K canvas renderer, 10 Scenes)
+// Little Talk Cafe - 3D Pixar-Disney Cinematic Animation Timeline Engine (60fps, 4K Canvas, 6 Scenes)
 
 class CafeTimelineEngine {
   constructor() {
-    this.totalDuration = 80.0; // 80 seconds master cinematic duration
+    this.totalDuration = 55.0; // 55 seconds master cinematic duration
     this.currentTime = 0.0;
     this.isPlaying = false;
     this.playbackRate = 1.0;
@@ -22,23 +22,21 @@ class CafeTimelineEngine {
     // Particles
     this.steamParticles = [];
     this.bokehParticles = [];
+    this.sparkleParticles = [];
+    this.confettiParticles = [];
     this.beanParticles = [];
 
-    // Triggered SFX tracker to avoid re-triggering during single pass
+    // Triggered SFX tracker
     this.triggeredTriggers = new Set();
 
-    // Scene Definitions
+    // 6 Pixar-Disney Scene Definitions matching user prompt exactly
     this.scenes = [
-      { id: 0, start: 0.0,  end: 7.0,  name: "Cafe Introduction", tag: "Atmosphere & Heritage" },
-      { id: 1, start: 7.0,  end: 14.0, name: "Customer Arrives",   tag: "Smart Table Availability" },
-      { id: 2, start: 14.0, end: 21.0, name: "Scan QR Code",       tag: "Scan. Browse. Order." },
-      { id: 3, start: 21.0, end: 30.0, name: "Browse Menu",        tag: "Interactive Mobile Menu" },
-      { id: 4, start: 30.0, end: 40.0, name: "Customize Order",    tag: "Your Order, Your Way" },
-      { id: 5, start: 40.0, end: 49.0, name: "Google Checkout",    tag: "Simple. Secure. Convenient." },
-      { id: 6, start: 49.0, end: 59.0, name: "Admin Dashboard",    tag: "Real-Time POS Notification" },
-      { id: 7, start: 59.0, end: 68.0, name: "Kitchen Prep (KDS)", tag: "Live Kitchen Progression" },
-      { id: 8, start: 68.0, end: 77.0, name: "Live Order Tracking",tag: "Ready for Pickup or Table Service" },
-      { id: 9, start: 77.0, end: 80.0, name: "Grand Brand Reveal", tag: "Little Talk Cafe" }
+      { id: 0, start: 0.0,  end: 8.0,  name: "Arrival in Rishikesh", tag: "Ram Jhula, Rishikesh • Table #4" },
+      { id: 1, start: 8.0,  end: 16.0, name: "Magical QR Scan",      tag: "Table #4 - Scan to Order • Instant Web App" },
+      { id: 2, start: 16.0, end: 26.0, name: "Browse & Order Sent",  tag: "3D Food Cards • Confetti • Order Sent!" },
+      { id: 3, start: 26.0, end: 36.0, name: "Kitchen Match-Cut",    tag: "Kitchen Display Alert • Jolly Barista Craft" },
+      { id: 4, start: 36.0, end: 46.0, name: "Waiter Delivery",      tag: "Brewing with Love ➔ Order Ready!" },
+      { id: 5, start: 46.0, end: 55.0, name: "Golden Hour Finale",   tag: "Scan • Order • Enjoy | Little Talk Cafe" }
     ];
 
     this.initParticles();
@@ -56,18 +54,17 @@ class CafeTimelineEngine {
     this.setupAudioTriggers();
     this.updateTimelineUI();
 
-    // Start render loop
     requestAnimationFrame((ts) => this.renderLoop(ts));
   }
 
   preloadAssets() {
     const assetList = [
-      { key: 'scene1_intro', src: 'assets/scene1_cafe_intro.jpg', fallback: 'public/assets/scene1_cafe_intro.jpg' },
-      { key: 'scene2_table', src: 'assets/scene2_qr_table.jpg', fallback: 'public/assets/scene2_qr_table.jpg' },
-      { key: 'scene3_qr_scan', src: 'assets/scene3_qr_scan.jpg', fallback: 'public/assets/scene3_qr_scan.jpg' },
-      { key: 'scene4_food', src: 'assets/scene4_cappuccino_sandwich.jpg', fallback: 'public/assets/scene4_cappuccino_sandwich.jpg' },
-      { key: 'scene8_barista', src: 'assets/scene8_barista_pour.jpg', fallback: 'public/assets/scene8_barista_pour.jpg' },
-      { key: 'scene10_friends', src: 'assets/scene10_happy_friends.jpg', fallback: 'public/assets/scene10_happy_friends.jpg' }
+      { key: 'pixar_scene1', src: 'assets/pixar_scene1_arrival.jpg', fallback: 'public/assets/pixar_scene1_arrival.jpg' },
+      { key: 'pixar_scene2', src: 'assets/pixar_scene2_qr_scan.jpg', fallback: 'public/assets/pixar_scene2_qr_scan.jpg' },
+      { key: 'pixar_scene3', src: 'assets/pixar_scene3_order_screen.jpg', fallback: 'public/assets/pixar_scene3_order_screen.jpg' },
+      { key: 'pixar_scene4', src: 'assets/pixar_scene4_barista.jpg', fallback: 'public/assets/pixar_scene4_barista.jpg' },
+      { key: 'pixar_scene5', src: 'assets/pixar_scene5_waiter.jpg', fallback: 'public/assets/pixar_scene5_waiter.jpg' },
+      { key: 'pixar_scene6', src: 'assets/pixar_scene6_ganges_sip.jpg', fallback: 'public/assets/pixar_scene6_ganges_sip.jpg' }
     ];
 
     let loadedCount = 0;
@@ -81,7 +78,6 @@ class CafeTimelineEngine {
         }
       };
       img.onerror = () => {
-        // Fallback to public/assets/ if root /assets/ is not routed
         if (!img.dataset.triedFallback) {
           img.dataset.triedFallback = "true";
           img.src = item.fallback;
@@ -93,9 +89,9 @@ class CafeTimelineEngine {
   }
 
   initParticles() {
-    // Bokeh floating dust / warm light particles
+    // 1. Warm Golden Bokeh Particles
     this.bokehParticles = [];
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 40; i++) {
       this.bokehParticles.push({
         x: Math.random() * this.renderWidth,
         y: Math.random() * this.renderHeight,
@@ -103,17 +99,17 @@ class CafeTimelineEngine {
         speedX: (Math.random() - 0.5) * 0.4,
         speedY: -Math.random() * 0.6 - 0.2,
         opacity: Math.random() * 0.4 + 0.1,
-        color: Math.random() > 0.4 ? 'rgba(235, 185, 120, ' : 'rgba(255, 240, 205, '
+        color: Math.random() > 0.4 ? 'rgba(245, 185, 100, ' : 'rgba(255, 230, 180, '
       });
     }
 
-    // Steam particles for coffee
+    // 2. Steaming Coffee Micro-Particles
     this.steamParticles = [];
     for (let i = 0; i < 30; i++) {
       this.steamParticles.push({
         x: 0,
         y: 0,
-        vx: (Math.random() - 0.5) * 0.8,
+        vx: (Math.random() - 0.5) * 0.7,
         vy: -Math.random() * 1.5 - 1.0,
         size: Math.random() * 14 + 10,
         alpha: Math.random() * 0.4,
@@ -121,17 +117,50 @@ class CafeTimelineEngine {
       });
     }
 
-    // Coffee beans for Scene 10 grand reveal
+    // 3. Magical Amber Light Sparkles (Scene 2)
+    this.sparkleParticles = [];
+    for (let i = 0; i < 50; i++) {
+      this.sparkleParticles.push({
+        x: this.renderWidth * 0.55 + (Math.random() - 0.5) * 80,
+        y: this.renderHeight * 0.6 + (Math.random() - 0.5) * 80,
+        targetX: this.renderWidth * 0.45 + (Math.random() - 0.5) * 100,
+        targetY: this.renderHeight * 0.4 + (Math.random() - 0.5) * 100,
+        progress: Math.random(),
+        speed: Math.random() * 0.02 + 0.01,
+        radius: Math.random() * 4 + 2,
+        color: Math.random() > 0.3 ? '#F59E0B' : '#FDE68A'
+      });
+    }
+
+    // 4. Confetti Burst Particles (Scene 3)
+    const confettiColors = ['#F59E0B', '#10B981', '#3B82F6', '#EC4899', '#8B5CF6', '#FBBF24'];
+    this.confettiParticles = [];
+    for (let i = 0; i < 60; i++) {
+      this.confettiParticles.push({
+        x: this.renderWidth * 0.5,
+        y: this.renderHeight * 0.48,
+        vx: (Math.random() - 0.5) * 12,
+        vy: -Math.random() * 14 - 3,
+        rot: Math.random() * 360,
+        rotSpeed: (Math.random() - 0.5) * 12,
+        w: Math.random() * 10 + 6,
+        h: Math.random() * 6 + 4,
+        color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+        alpha: 1.0
+      });
+    }
+
+    // 5. Golden Floating Coffee Beans (Scene 6)
     this.beanParticles = [];
-    for (let i = 0; i < 28; i++) {
+    for (let i = 0; i < 24; i++) {
       this.beanParticles.push({
         x: Math.random() * this.renderWidth,
-        y: -100 - Math.random() * 400,
-        targetY: this.renderHeight * 0.4 + Math.random() * 450,
-        vx: (Math.random() - 0.5) * 1.2,
-        vy: Math.random() * 2 + 1.5,
+        y: -100 - Math.random() * 300,
+        targetY: this.renderHeight * 0.35 + Math.random() * 480,
+        vx: (Math.random() - 0.5) * 1.0,
+        vy: Math.random() * 1.8 + 1.2,
         rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.05,
+        rotSpeed: (Math.random() - 0.5) * 0.04,
         scale: Math.random() * 0.6 + 0.5,
         alpha: Math.random() * 0.6 + 0.3
       });
@@ -140,24 +169,19 @@ class CafeTimelineEngine {
 
   setupAudioTriggers() {
     this.soundCues = [
-      { time: 1.0,  action: () => window.cafeAudio?.playEspressoSteam() },
-      { time: 7.8,  action: () => window.cafeAudio?.playTap() },
-      { time: 10.5, action: () => window.cafeAudio?.playTap() },
-      { time: 15.2, action: () => window.cafeAudio?.playQRBeep() },
-      { time: 22.5, action: () => window.cafeAudio?.playTap() },
-      { time: 26.0, action: () => window.cafeAudio?.playTap() },
-      { time: 31.5, action: () => window.cafeAudio?.playTap() },
-      { time: 34.0, action: () => window.cafeAudio?.playTap() },
-      { time: 36.5, action: () => window.cafeAudio?.playAddToCart() },
-      { time: 41.5, action: () => window.cafeAudio?.playTap() },
-      { time: 44.0, action: () => window.cafeAudio?.playGoogleAuth() },
-      { time: 49.5, action: () => window.cafeAudio?.playAdminNewOrderAlert() },
-      { time: 54.0, action: () => window.cafeAudio?.playTap() },
-      { time: 60.5, action: () => window.cafeAudio?.playEspressoSteam() },
-      { time: 65.5, action: () => window.cafeAudio?.playKitchenBell() },
-      { time: 69.5, action: () => window.cafeAudio?.playOrderReady() },
-      { time: 74.0, action: () => window.cafeAudio?.playTap() },
-      { time: 77.8, action: () => window.cafeAudio?.playOrderReady() }
+      { time: 0.8,  action: () => window.cafeAudio?.playEspressoSteam() },
+      { time: 5.5,  action: () => window.cafeAudio?.playTap() },
+      { time: 8.5,  action: () => { window.cafeAudio?.playMagicalSparkle?.(); window.cafeAudio?.playQRBeep(); } },
+      { time: 13.0, action: () => window.cafeAudio?.playTap() },
+      { time: 17.0, action: () => window.cafeAudio?.playTap() },
+      { time: 19.5, action: () => window.cafeAudio?.playAddToCart() },
+      { time: 22.0, action: () => { window.cafeAudio?.playConfettiCheer?.(); window.cafeAudio?.playGoogleAuth(); } },
+      { time: 27.0, action: () => window.cafeAudio?.playAdminNewOrderAlert() },
+      { time: 31.0, action: () => window.cafeAudio?.playEspressoSteam() },
+      { time: 34.0, action: () => window.cafeAudio?.playKitchenBell() },
+      { time: 37.0, action: () => window.cafeAudio?.playOrderReady() },
+      { time: 42.0, action: () => window.cafeAudio?.playTap() },
+      { time: 47.0, action: () => window.cafeAudio?.playOrderReady() }
     ];
   }
 
@@ -169,7 +193,6 @@ class CafeTimelineEngine {
     this.isPlaying = true;
     this.lastFrameTimestamp = performance.now();
 
-    // Start procedural audio
     if (window.cafeAudio) {
       window.cafeAudio.init();
     }
@@ -225,14 +248,13 @@ class CafeTimelineEngine {
 
     if (activeIdx !== this.currentSceneIndex) {
       this.currentSceneIndex = activeIdx;
-      // Trigger voiceover for scene
       if (this.isPlaying && window.cafeVoiceover) {
         window.cafeVoiceover.speak(activeIdx);
       }
     }
 
     // Toggle active DOM scene overlay
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 6; i++) {
       const el = document.getElementById(`scene-overlay-${i}`);
       if (el) {
         if (i === activeIdx) {
@@ -256,7 +278,6 @@ class CafeTimelineEngine {
         this.pause();
       }
 
-      // Check audio cues
       this.soundCues.forEach(cue => {
         if (this.currentTime >= cue.time && !this.triggeredTriggers.has(cue.time)) {
           this.triggeredTriggers.add(cue.time);
@@ -270,9 +291,7 @@ class CafeTimelineEngine {
       this.lastFrameTimestamp = timestamp;
     }
 
-    // Draw frame to 4K canvas
     this.drawFrame();
-
     requestAnimationFrame((ts) => this.renderLoop(ts));
   }
 
@@ -305,11 +324,11 @@ class CafeTimelineEngine {
     const sceneDuration = scene.end - scene.start;
     const progress = Math.max(0, Math.min(1, sceneTime / sceneDuration));
 
-    // Clear background with rich warm espresso dark tone
-    ctx.fillStyle = '#100C09';
+    // Clear background
+    ctx.fillStyle = '#140E0A';
     ctx.fillRect(0, 0, w, h);
 
-    // Render Scene-specific cinematic canvas graphics
+    // Render Scene-specific visuals
     switch (this.currentSceneIndex) {
       case 0:
         this.renderScene1(ctx, w, h, progress, sceneTime);
@@ -329,194 +348,64 @@ class CafeTimelineEngine {
       case 5:
         this.renderScene6(ctx, w, h, progress, sceneTime);
         break;
-      case 6:
-        this.renderScene7(ctx, w, h, progress, sceneTime);
-        break;
-      case 7:
-        this.renderScene8(ctx, w, h, progress, sceneTime);
-        break;
-      case 8:
-        this.renderScene9(ctx, w, h, progress, sceneTime);
-        break;
-      case 9:
-        this.renderScene10(ctx, w, h, progress, sceneTime);
-        break;
     }
 
-    // Render Floating Bokeh Particles (Atmospheric warmth)
+    // Floating Bokeh Particles
     this.drawBokehParticles(ctx, w, h);
 
-    // Warm Vignette & Cinematic Film Grain
+    // Warm Vignette
     this.drawCinematicOverlays(ctx, w, h);
   }
 
-  // --- Scene 1: Cafe Introduction (0-7s) ---
+  // --- Scene 1: Arrival & Seating in Rishikesh (0 - 8s) ---
   renderScene1(ctx, w, h, progress, sceneTime) {
-    const img = this.images['scene1_intro'];
+    const img = this.images['pixar_scene1'];
     if (img && img.complete) {
-      // Slow camera dolly-in & pan
-      const scale = 1.05 + progress * 0.08;
-      const panX = -20 - progress * 30;
-      const panY = -15 - progress * 15;
-
+      // Cinematic slow dolly-in
+      const scale = 1.03 + progress * 0.07;
+      const panX = -15 - progress * 20;
       ctx.save();
       ctx.translate(w / 2, h / 2);
       ctx.scale(scale, scale);
-      ctx.drawImage(img, -w / 2 + panX, -h / 2 + panY, w, h);
+      ctx.drawImage(img, -w / 2 + panX, -h / 2, w, h);
       ctx.restore();
     }
 
-    // Atmospheric warm golden sunlight gradient
-    const sunGrad = ctx.createRadialGradient(w * 0.75, h * 0.25, 50, w * 0.75, h * 0.25, w * 0.85);
-    sunGrad.addColorStop(0, 'rgba(255, 220, 160, 0.35)');
-    sunGrad.addColorStop(0.5, 'rgba(215, 140, 70, 0.15)');
-    sunGrad.addColorStop(1, 'rgba(0, 0, 0, 0.55)');
+    // Warm morning volumetric sunbeams through arched windows
+    const sunGrad = ctx.createRadialGradient(w * 0.25, h * 0.35, 60, w * 0.25, h * 0.35, w * 0.85);
+    sunGrad.addColorStop(0, 'rgba(255, 220, 160, 0.28)');
+    sunGrad.addColorStop(0.5, 'rgba(215, 140, 70, 0.12)');
+    sunGrad.addColorStop(1, 'rgba(0, 0, 0, 0.45)');
     ctx.fillStyle = sunGrad;
     ctx.fillRect(0, 0, w, h);
 
-    // Animated Coffee Cup Steam in foreground
-    this.drawSteam(ctx, w * 0.35, h * 0.65, 1.2);
+    // Steam rising from table
+    this.drawSteam(ctx, w * 0.48, h * 0.68, 1.0);
   }
 
-  // --- Scene 2: Customer Arrives & Table Availability (7-14s) ---
+  // --- Scene 2: Scan QR Code with Sparkling Particles (8 - 16s) ---
   renderScene2(ctx, w, h, progress, sceneTime) {
-    const img = this.images['scene2_table'];
+    const img = this.images['pixar_scene2'];
     if (img && img.complete) {
-      const scale = 1.08 - progress * 0.05;
-      const panX = 15 - progress * 25;
+      // Camera zooms smoothly in a close-up tracking shot
+      const scale = 1.02 + progress * 0.09;
+      const panY = -progress * 15;
       ctx.save();
       ctx.translate(w / 2, h / 2);
       ctx.scale(scale, scale);
-      ctx.drawImage(img, -w / 2 + panX, -h / 2, w, h);
+      ctx.drawImage(img, -w / 2, -h / 2 + panY, w, h);
       ctx.restore();
     }
 
-    // Subtle dark gradient on left for Table Availability HUD overlay
-    const overlayGrad = ctx.createLinearGradient(0, 0, w * 0.55, 0);
-    overlayGrad.addColorStop(0, 'rgba(15, 10, 7, 0.82)');
-    overlayGrad.addColorStop(0.7, 'rgba(20, 14, 9, 0.5)');
-    overlayGrad.addColorStop(1, 'rgba(0, 0, 0, 0.1)');
-    ctx.fillStyle = overlayGrad;
-    ctx.fillRect(0, 0, w, h);
+    // Draw magical golden amber light particle effect sparkling from QR into phone
+    this.drawAmberSparkles(ctx, progress);
   }
 
-  // --- Scene 3: Scan QR Code (14-21s) ---
+  // --- Scene 3: Browse Food & Order Sent to Kitchen (16 - 26s) ---
   renderScene3(ctx, w, h, progress, sceneTime) {
-    const img = this.images['scene3_qr_scan'];
+    const img = this.images['pixar_scene3'];
     if (img && img.complete) {
-      // Dynamic camera zoom into the QR code and phone screen
-      const scale = 1.0 + progress * 0.12;
-      const panX = -progress * 20;
-      ctx.save();
-      ctx.translate(w / 2, h / 2);
-      ctx.scale(scale, scale);
-      ctx.drawImage(img, -w / 2 + panX, -h / 2, w, h);
-      ctx.restore();
-    }
-
-    // Laser QR Scan Line Effect (during 14.5s - 17.5s)
-    if (sceneTime > 0.8 && sceneTime < 3.8) {
-      const scanProgress = ((sceneTime - 0.8) % 1.5) / 1.5;
-      const scanY = h * 0.32 + scanProgress * (h * 0.36);
-
-      const laserGrad = ctx.createLinearGradient(0, scanY - 12, 0, scanY + 12);
-      laserGrad.addColorStop(0, 'rgba(0, 255, 170, 0)');
-      laserGrad.addColorStop(0.5, 'rgba(0, 255, 170, 0.7)');
-      laserGrad.addColorStop(1, 'rgba(0, 255, 170, 0)');
-
-      ctx.fillStyle = laserGrad;
-      ctx.fillRect(w * 0.38, scanY - 12, w * 0.24, 24);
-
-      // Sharp central laser beam
-      ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.moveTo(w * 0.38, scanY);
-      ctx.lineTo(w * 0.62, scanY);
-      ctx.stroke();
-    }
-  }
-
-  // --- Scene 4: Browse Coffee and Food (21-30s) ---
-  renderScene4(ctx, w, h, progress, sceneTime) {
-    const img = this.images['scene4_food'];
-    if (img && img.complete) {
-      // Warm blurred cafe backdrop behind phone
-      ctx.save();
-      ctx.filter = 'blur(10px) brightness(0.65)';
-      ctx.drawImage(img, -40, -40, w + 80, h + 80);
-      ctx.restore();
-    }
-  }
-
-  // --- Scene 5: Customize the Order (30-40s) ---
-  renderScene5(ctx, w, h, progress, sceneTime) {
-    const img = this.images['scene4_food'];
-    if (img && img.complete) {
-      ctx.save();
-      ctx.filter = 'blur(14px) brightness(0.55)';
-      ctx.drawImage(img, 0, 0, w, h);
-      ctx.restore();
-    }
-  }
-
-  // --- Scene 6: Checkout and Google Login (40-49s) ---
-  renderScene6(ctx, w, h, progress, sceneTime) {
-    const img = this.images['scene1_intro'];
-    if (img && img.complete) {
-      ctx.save();
-      ctx.filter = 'blur(16px) brightness(0.45)';
-      ctx.drawImage(img, 0, 0, w, h);
-      ctx.restore();
-    }
-  }
-
-  // --- Scene 7: Admin Receives Order (49-59s) ---
-  renderScene7(ctx, w, h, progress, sceneTime) {
-    // Elegant modern cafe bar counter backdrop behind the 27" desktop monitor
-    const img = this.images['scene1_intro'];
-    if (img && img.complete) {
-      ctx.save();
-      ctx.filter = 'blur(8px) brightness(0.5)';
-      ctx.drawImage(img, -20, -20, w + 40, h + 40);
-      ctx.restore();
-    }
-  }
-
-  // --- Scene 8: Kitchen Preparation (59-68s) ---
-  renderScene8(ctx, w, h, progress, sceneTime) {
-    const img = this.images['scene8_barista'];
-    if (img && img.complete) {
-      // Dynamic camera push-in on the silky latte art pour
-      const scale = 1.04 + progress * 0.09;
-      ctx.save();
-      ctx.translate(w * 0.65, h * 0.5);
-      ctx.scale(scale, scale);
-      ctx.drawImage(img, -w * 0.65, -h * 0.5, w, h);
-      ctx.restore();
-    }
-
-    // Gentle realistic steam rising from the barista's cup
-    this.drawSteam(ctx, w * 0.62, h * 0.55, 1.4);
-  }
-
-  // --- Scene 9: Live Order Tracking (68-77s) ---
-  renderScene9(ctx, w, h, progress, sceneTime) {
-    const img = this.images['scene2_table'];
-    if (img && img.complete) {
-      ctx.save();
-      ctx.filter = 'blur(12px) brightness(0.5)';
-      ctx.drawImage(img, 0, 0, w, h);
-      ctx.restore();
-    }
-  }
-
-  // --- Scene 10: Happy Ending & Brand Reveal (77-80s) ---
-  renderScene10(ctx, w, h, progress, sceneTime) {
-    const img = this.images['scene10_friends'];
-    if (img && img.complete) {
-      // Slow emotional zoom out with warm golden glow
-      const scale = 1.12 - progress * 0.08;
+      const scale = 1.04 - progress * 0.04;
       ctx.save();
       ctx.translate(w / 2, h / 2);
       ctx.scale(scale, scale);
@@ -524,19 +413,117 @@ class CafeTimelineEngine {
       ctx.restore();
     }
 
-    // Warm radial vignette
-    const vignette = ctx.createRadialGradient(w / 2, h / 2, w * 0.2, w / 2, h / 2, w * 0.7);
-    vignette.addColorStop(0, 'rgba(20, 14, 10, 0.45)');
-    vignette.addColorStop(0.7, 'rgba(15, 10, 6, 0.85)');
-    vignette.addColorStop(1, 'rgba(10, 7, 4, 0.98)');
+    // Confetti celebration burst after 5.5s of scene (around 21.5s total time)
+    if (sceneTime > 5.5) {
+      this.drawConfetti(ctx, sceneTime - 5.5);
+    }
+  }
+
+  // --- Scene 4: Kitchen Match-Cut & Jolly Barista (26 - 36s) ---
+  renderScene4(ctx, w, h, progress, sceneTime) {
+    const img = this.images['pixar_scene4'];
+    if (img && img.complete) {
+      // Fast playful zoom into barista's warm smile and latte art
+      const scale = 1.02 + progress * 0.08;
+      ctx.save();
+      ctx.translate(w * 0.55, h * 0.5);
+      ctx.scale(scale, scale);
+      ctx.drawImage(img, -w * 0.55, -h * 0.5, w, h);
+      ctx.restore();
+    }
+
+    // Swirling espresso steam
+    this.drawSteam(ctx, w * 0.68, h * 0.65, 1.4);
+  }
+
+  // --- Scene 5: Table Cut Back & Waiter Delivery (36 - 46s) ---
+  renderScene5(ctx, w, h, progress, sceneTime) {
+    const img = this.images['pixar_scene5'];
+    if (img && img.complete) {
+      const scale = 1.05 - progress * 0.05;
+      ctx.save();
+      ctx.translate(w / 2, h / 2);
+      ctx.scale(scale, scale);
+      ctx.drawImage(img, -w / 2, -h / 2, w, h);
+      ctx.restore();
+    }
+
+    // Steaming coffee on the delivered tray
+    this.drawSteam(ctx, w * 0.52, h * 0.62, 1.2);
+  }
+
+  // --- Scene 6: Golden-Hour Wide Shot & Brand Finale (46 - 55s) ---
+  renderScene6(ctx, w, h, progress, sceneTime) {
+    const img = this.images['pixar_scene6'];
+    if (img && img.complete) {
+      // Slow wide cinematic pan showing Ganges river sunset
+      const scale = 1.08 - progress * 0.06;
+      ctx.save();
+      ctx.translate(w / 2, h / 2);
+      ctx.scale(scale, scale);
+      ctx.drawImage(img, -w / 2, -h / 2, w, h);
+      ctx.restore();
+    }
+
+    // Golden hour warm radial vignette
+    const vignette = ctx.createRadialGradient(w / 2, h / 2, w * 0.25, w / 2, h / 2, w * 0.72);
+    vignette.addColorStop(0, 'rgba(25, 16, 10, 0.35)');
+    vignette.addColorStop(0.7, 'rgba(18, 11, 7, 0.75)');
+    vignette.addColorStop(1, 'rgba(10, 6, 4, 0.95)');
     ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, w, h);
 
-    // Floating 3D Coffee Beans in foreground
+    // Floating 3D Coffee Beans
     this.drawFallingCoffeeBeans(ctx, progress);
   }
 
-  // Steam particle drawer
+  // --- Particle Drawer Helpers ---
+
+  drawAmberSparkles(ctx, progress) {
+    ctx.save();
+    this.sparkleParticles.forEach((p, idx) => {
+      p.progress += p.speed;
+      if (p.progress > 1) p.progress = 0;
+
+      // Arc curve from QR to phone screen
+      const curX = p.x + (p.targetX - p.x) * p.progress + Math.sin(p.progress * Math.PI) * 45;
+      const curY = p.y + (p.targetY - p.y) * p.progress - Math.sin(p.progress * Math.PI) * 75;
+
+      const alpha = Math.sin(p.progress * Math.PI);
+      const rad = p.radius * (1 + Math.sin(p.progress * Math.PI * 2) * 0.3);
+
+      const grad = ctx.createRadialGradient(curX, curY, 0, curX, curY, rad * 2.5);
+      grad.addColorStop(0, '#FFFFFF');
+      grad.addColorStop(0.3, p.color);
+      grad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(curX, curY, rad * 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  drawConfetti(ctx, animTime) {
+    ctx.save();
+    const progress = Math.min(1.0, animTime / 3.0);
+    this.confettiParticles.forEach((c) => {
+      const curX = c.x + c.vx * animTime * 40;
+      const curY = c.y + c.vy * animTime * 35 + 0.5 * 250 * (animTime * animTime);
+      c.rot += c.rotSpeed;
+
+      ctx.save();
+      ctx.translate(curX, curY);
+      ctx.rotate((c.rot * Math.PI) / 180);
+      ctx.fillStyle = c.color;
+      ctx.globalAlpha = Math.max(0, 1 - progress);
+      ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+      ctx.restore();
+    });
+    ctx.restore();
+  }
+
   drawSteam(ctx, x, y, intensity = 1.0) {
     ctx.save();
     this.steamParticles.forEach(p => {
@@ -563,7 +550,6 @@ class CafeTimelineEngine {
     ctx.restore();
   }
 
-  // Floating golden bokeh particles
   drawBokehParticles(ctx, w, h) {
     ctx.save();
     this.bokehParticles.forEach(p => {
@@ -589,7 +575,6 @@ class CafeTimelineEngine {
     ctx.restore();
   }
 
-  // 3D Coffee Bean illustration & physics in Scene 10
   drawFallingCoffeeBeans(ctx, progress) {
     ctx.save();
     this.beanParticles.forEach((b, i) => {
@@ -602,7 +587,7 @@ class CafeTimelineEngine {
       ctx.scale(b.scale, b.scale);
       ctx.globalAlpha = Math.min(0.9, progress * 1.8) * b.alpha;
 
-      // Draw stylized coffee bean
+      // Stylized Pixar-style coffee bean
       ctx.fillStyle = '#2B170B';
       ctx.beginPath();
       ctx.ellipse(0, 0, 18, 28, 0, 0, Math.PI * 2);
@@ -615,7 +600,7 @@ class CafeTimelineEngine {
       ctx.arc(0, 0, 22, -0.4, 0.4);
       ctx.stroke();
 
-      // Middle bean groove (characteristic wavy coffee bean center)
+      // Middle bean groove
       ctx.strokeStyle = '#120A05';
       ctx.lineWidth = 3.5;
       ctx.beginPath();
@@ -628,12 +613,10 @@ class CafeTimelineEngine {
     ctx.restore();
   }
 
-  // Cinematic film overlays (Lens flare, warm edge, vignette)
   drawCinematicOverlays(ctx, w, h) {
-    // 16:9 Subdued vignette
     const vignette = ctx.createRadialGradient(w / 2, h / 2, w * 0.35, w / 2, h / 2, w * 0.72);
     vignette.addColorStop(0, 'rgba(0,0,0,0)');
-    vignette.addColorStop(1, 'rgba(10, 6, 3, 0.6)');
+    vignette.addColorStop(1, 'rgba(10, 6, 3, 0.55)');
     ctx.fillStyle = vignette;
     ctx.fillRect(0, 0, w, h);
   }
